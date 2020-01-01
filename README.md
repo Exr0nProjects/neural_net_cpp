@@ -17,7 +17,7 @@ Here's the master plan for this project. It is divided into stages:
 I plan to write this decently well, and from scratch, which means that I will need to create some classes. At the moment, I'm thinking of writing a `Matrix` class that can implement all the math, a `Layer` class that acts implements a fully connected layer with methods like `init` and `activate` and `update` (for backprop), and finally a `Network` class that handles all the interfacing. Specifically, I plan to have the following basic functionality for each class:
 
 - [ ] `Matrix`: Mathamatical workhorse
-  - [x] Primary constructor `Matrix(vector<vector<int> > &src)` until I figure out how to make it take initializer lists
+  - [x] Primary constructor `Matrix(vector<vector<long double> > &src)` until I figure out how to make it take initializer lists
   - [ ] Transpose utility `const Matrix& matrix.transpose() const -> copy`
   - [ ] Dot multiplication utility `const Matrix& matrix.dot(const Matrix &other) const -> copy`
   - [ ] Exponent utility `const Matrix& matrix.exp() const -> copy`
