@@ -16,6 +16,22 @@ Here's the master plan for this project. It is divided into stages:
 
 I plan to write this decently well, and from scratch, which means that I will need to create some classes. At the moment, I'm thinking of writing a `Matrix` class that can implement all the math, a `Layer` class that acts implements a fully connected layer with methods like `init` and `activate` and `update` (for backprop), and finally a `Network` class that handles all the interfacing. Specifically, I plan to have the following basic functionality for each class:
 
+- [ ] `Matrix`: Mathamatical workhorse
+  - [ ] Transpose utility `const Matrix& matrix.transpose() const -> copy`
+  - [ ] Dot multiplication utility `const Matrix& matrix.dot(const Matrix &other) const -> copy`
+  - [ ] Exponent utility `const Matrix& matrix.exp() const -> copy`
+- [ ] `Layer`: Abstract layer-wise math
+  - [ ] Primary constructor `Layer(const int size)`
+  - [ ] Implement `const Matrix& layer.feed(const Matrix &activations) -> activations`
+  - [ ] Implement `const Matrix& layer.backprop(const Matrix &target) -> delta` which is to be used on the final layer of the network
+  - [ ] Implement `const Matrix& layer.backprop(const Layer &previous) -> delta` which is to be used for intermediate layers
+- [ ] `Network`: Interface for the other code
+  - [ ] Primary constructor `Network(const vector<int> &layer_sizes)`
+  - [ ] Single step wrapper `const Matrix& network.feed(const Matrix &input) -> output`
+  - [ ] Backprop wrapper `void network.backprop(const Matrix &output, const Matrix &expected)`
+  - [ ] Feed wrapper (combines single step and backprop) `void network.feed(const Matrix &input, const Matrix &expected)`
+  - [ ] Train wrapper (loops feed wrapper) `void network.train(const Matrix &input, const Matrix &expected, const int epochs)`
+
 ### Stage 2 - Basic Functionality
 
 With all the base code written, I plan to write a simple `int main()` driver that mimics the functionality of Part 2 of [iamtrask's original post](https://iamtrask.github.io/2015/07/12/basic-python-network/). If the Stage 1 was written well, then this should go smoothly
