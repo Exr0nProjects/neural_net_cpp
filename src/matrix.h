@@ -14,6 +14,7 @@ template<class val_t> class Matrix
   val_t **_data = nullptr;
   dim_t _width = 0;
   dim_t _height = 0;
+  int _id = rand();
 public:
 
   /* constructors/destructors */
@@ -26,10 +27,10 @@ public:
    */
   Matrix(const dim_t width, const dim_t height): _width(width), _height(height)
   {
+    printf("Initializing matrix %d\n", _id);
     _data = new val_t*[_height];
     for (dim_t i=0; i<_height; ++i)
       _data[i] = new val_t[_width];
-    printf("Finished allocating!\n");
   }
 
   /**
@@ -56,6 +57,7 @@ public:
    */
   Matrix(const Matrix &src): Matrix(src.width(), src.height())
   {
+    printf("Copy constructor called!\n");
     for (dim_t i=0; i<_height; ++i)
       for (dim_t j=0; j<_width; ++j)
         set(i, j, src.get(i, j));
@@ -63,10 +65,10 @@ public:
 
   ~Matrix()
   {
+    printf("Deconstructor called: %d!", _id);
     for (dim_t i=0; i<_height; ++i)
     {
-      printf("Yeeting %d\n", i);
-      //delete [] _data[1];
+      delete [] _data[1];
     }
     delete [] _data;
   }
@@ -106,13 +108,13 @@ public:
    * Return a copy of this matrix, but transposed
    * @return matrix A Matrix that is this matrix but transposed
    */
-  Matrix transpose() const
+  Matrix* transpose() const
   {
-    Matrix ret = Matrix(_height, _width);
+    Matrix *ret = new Matrix(_height, _width);
     printf("initialized ret with size (%d, %d)\n", ret.width(), ret.height());
     for (dim_t h=0; h<_height; ++h)
       for (dim_t w=0; w<_width; ++w)
-        ret.set(h, w, _data[w][h]);
+        ret->set(h, w, this->get(w, h));
     return ret;
   }
 };
