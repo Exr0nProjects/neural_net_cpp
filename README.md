@@ -18,14 +18,14 @@ I plan to write this decently well, and from scratch, which means that I will ne
 
 - [ ] `Matrix`: Mathamatical workhorse
   - [x] Primary constructor `Matrix(vector<vector<long double> > &src)` until I figure out how to make it take initializer lists
-  - [ ] Transpose utility `const Matrix& matrix.transpose() const -> copy`
-  - [ ] Dot multiplication utility `const Matrix& matrix.dot(const Matrix &other) const -> copy`
-  - [ ] Exponent utility `const Matrix& matrix.exp() const -> copy`
+  - [ ] Transpose utility `Matrix matrix.transpose() const -> copy`
+  - [ ] Dot multiplication utility `Matrix matrix.dot(const Matrix &other) const -> copy`
+  - [ ] Exponent utility `Matrix matrix.exp() const -> copy`
 - [ ] `Layer`: Abstract layer-wise math
   - [ ] Primary constructor `Layer(const int size)`
-  - [ ] Implement `const Matrix& layer.feed(const Matrix &activations) -> activations`
-  - [ ] Implement `const Matrix& layer.backprop(const Matrix &target) -> delta` which is to be used on the final layer of the network
-  - [ ] Implement `const Matrix& layer.backprop(const Layer &previous) -> delta` which is to be used for intermediate layers
+  - [ ] Implement `Matrix layer.feed(const Matrix &activations) -> activations`
+  - [ ] Implement `Matrix layer.backprop(const Matrix &target) -> delta` which is to be used on the final layer of the network
+  - [ ] Implement `Matrix layer.backprop(const Layer &previous) -> delta` which is to be used for intermediate layers
 - [ ] `Network`: Interface for the other code
   - [ ] Primary constructor `Network(const vector<int> &layer_sizes)`
   - [ ] Single step wrapper `const Matrix& network.feed(const Matrix &input) -> output`
