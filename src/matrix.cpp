@@ -1,21 +1,21 @@
 #pragma once
 
 #include <vector>
-#include <cmath>
 
 /**
  * Matrix: Mathamatical Workhorse
  * Designed to do all of the heavy lifting math wise for the network
  * Will be modified to work with CUDA later
  */
-template<class val_t> class Matrix
+template <class val_t>
+class Matrix
 {
   typedef unsigned int dim_t;
   val_t **_data = nullptr;
   dim_t _width = 0;
   dim_t _height = 0;
-public:
 
+public:
   /* constructors/destructors */
   Matrix() {}
 
@@ -24,10 +24,10 @@ public:
    * @param width Width of the new Matrix
    * @param height Height of the new Matrix
    */
-  Matrix(const dim_t width, const dim_t height): _width(width), _height(height)
+  Matrix(const dim_t width, const dim_t height) : _width(width), _height(height)
   {
-    _data = new val_t*[_height];
-    for (dim_t i=0; i<_height; ++i)
+    _data = new val_t *[_height];
+    for (dim_t i = 0; i < _height; ++i)
       _data[i] = new val_t[_width];
     printf("Finished allocating!\n");
   }
@@ -36,16 +36,16 @@ public:
    * Initalizer Constructor - Create a Matrix from a 2D vector
    * @param src 2D vector to copy from
    */
-  Matrix(const std::vector<std::vector<val_t> > &src): Matrix(src.size(), src[0].size())
+  Matrix(const std::vector<std::vector<val_t>> &src) : Matrix(src.size(), src[0].size())
   {
     // copy data
-    for (dim_t i=0; i<_height; ++i)
+    for (dim_t i = 0; i < _height; ++i)
     {
       // check shape
       if (src[i].size() != _width)
         throw "Non rectangular vector input!";
       // copy row
-      for (dim_t j=0; j<_width; ++j)
+      for (dim_t j = 0; j < _width; ++j)
         set(i, j, src[i][j]);
     }
   }
@@ -54,21 +54,21 @@ public:
    * Copy Constructor - Copy a matrix
    * @param src Matrix to copy from
    */
-  Matrix(const Matrix &src): Matrix(src.width(), src.height())
+  Matrix(const Matrix &src) : Matrix(src.width(), src.height())
   {
-    for (dim_t i=0; i<_height; ++i)
-      for (dim_t j=0; j<_width; ++j)
+    for (dim_t i = 0; i < _height; ++i)
+      for (dim_t j = 0; j < _width; ++j)
         set(i, j, src.get(i, j));
   }
 
   ~Matrix()
   {
-    for (dim_t i=0; i<_height; ++i)
+    for (dim_t i = 0; i < _height; ++i)
     {
       printf("Yeeting %d\n", i);
       //delete [] _data[1];
     }
-    delete [] _data;
+    delete[] _data;
   }
 
   /* methods */
@@ -110,8 +110,8 @@ public:
   {
     Matrix ret = Matrix(_height, _width);
     printf("initialized ret with size (%d, %d)\n", ret.width(), ret.height());
-    for (dim_t h=0; h<_height; ++h)
-      for (dim_t w=0; w<_width; ++w)
+    for (dim_t h = 0; h < _height; ++h)
+      for (dim_t w = 0; w < _width; ++w)
         ret.set(h, w, _data[w][h]);
     return ret;
   }
