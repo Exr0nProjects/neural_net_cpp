@@ -8,9 +8,9 @@
 #include <vector>
 
 #pragma once
-#include "templates/matrix.h"
-#include "templates/layer.h"
-#include "templates/network.h"
+#include "src/matrix.h"
+#include "src/layer.h"
+#include "src/network.h"
 
 int main()
 {
