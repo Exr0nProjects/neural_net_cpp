@@ -15,7 +15,7 @@
 template <class T>
 Matrix<T>* matrixIn()
 {
-  std::cout << "Please enter a matrix with dimensions at the top:" << std::endl;
+  //std::cout << "Please enter a matrix with dimensions at the top:" << std::endl;
   T h, w;
   std::cin >> h >> w;
   Matrix<T>* ret = new Matrix<T>(h, w);
@@ -32,14 +32,18 @@ Matrix<T>* matrixIn()
 
 int main()
 {
+  // freopen("test.in", "r", stdin);
+  // freopen("test.out", "w+", stdout);
+  std::ios_base::sync_with_stdio(false);
+  std::cin.tie(NULL);
   Matrix<int> *a = matrixIn<int>();
   Matrix<int> *b = matrixIn<int>();
 
-  printf("Multiplying matricies...\n");
+  //printf("Multiplying matricies...\n");
 
   Matrix<int> *ret = a->dot(*b);
 
-  printf("Done! (%dx%d) Here it is:\n", ret->h(), ret->w());
+  //printf("Done! (%dx%d) Here it is:\n", ret->h(), ret->w());
   ret->print();
 
   /*
@@ -50,6 +54,14 @@ int main()
 1 0 0
 0 1 0
 0 0 1
+
+2 3
+1 2 3
+4 5 6
+3 3
+1 0 0
+0 2 0
+0 0 3
 */
 
   return 0;
