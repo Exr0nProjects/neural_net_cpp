@@ -134,7 +134,7 @@ public:
    * @param matrix Matrix to be multiplied by
    * @return Matrix* The product matrix
    */
-  Matrix *dot(const Matrix &o)
+  Matrix *dot(const Matrix &o) const
   {
     if (_width != o.h())
       throw "Invalid matrix dimensions!";

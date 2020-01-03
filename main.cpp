@@ -32,20 +32,24 @@ Matrix<T>* matrixIn()
 
 int main()
 {
-  Matrix<int> *mat = matrixIn<int>();
+  Matrix<int> *a = matrixIn<int>();
+  Matrix<int> *b = matrixIn<int>();
 
-  printf("Okay, transposing your matrix...\n");
+  printf("Multiplying matricies...\n");
 
-  Matrix<int> *ret = mat->transpose();
+  Matrix<int> *ret = a->dot(*b);
 
   printf("Done! (%dx%d) Here it is:\n", ret->h(), ret->w());
-
   ret->print();
 
   /*
 2 3
 1 2 3
 4 5 6
+3 3
+1 0 0
+0 1 0
+0 0 1
 */
 
   return 0;
