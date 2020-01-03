@@ -27,7 +27,6 @@ public:
    */
   Matrix(const dim_t width, const dim_t height): _width(width), _height(height)
   {
-    printf("Initializing matrix %d\n", _id);
     _data = new val_t*[_height];
     for (dim_t i=0; i<_height; ++i)
       _data[i] = new val_t[_width];
@@ -57,7 +56,6 @@ public:
    */
   Matrix(const Matrix &src): Matrix(src.width(), src.height())
   {
-    printf("Copy constructor called!\n");
     for (dim_t i=0; i<_height; ++i)
       for (dim_t j=0; j<_width; ++j)
         set(i, j, src.get(i, j));
@@ -78,9 +76,9 @@ public:
    */
   void print()
   {
-    for (int i=0; i<_width; ++i)
+    for (int j = 0; j < _height; ++j)
     {
-      for (int j=0; j<_height; ++j)
+      for (int i = 0; i < _width; ++i)
         std::cout << " " << get(i, j);
       std::cout << std::endl;
     }
@@ -125,7 +123,6 @@ public:
   Matrix* transpose() const
   {
     Matrix *ret = new Matrix(_height, _width);
-    printf("initialized ret with size (%d, %d)\n", ret->width(), ret->height());
     for (dim_t h=0; h<_height; ++h)
       for (dim_t w=0; w<_width; ++w)
         ret->set(h, w, this->get(w, h));
