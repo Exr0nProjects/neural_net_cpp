@@ -34,7 +34,7 @@ int main()
 
   Matrix<int>* ret = mat.transpose();
 
-  printf("Done! (%d, %d) Here it is:\n", ret->h(), ret->w());
+  printf("Done! (%dx%d) Here it is:\n", ret->h(), ret->w());
 
   ret->print();
 

@@ -88,15 +88,15 @@ public:
    * Returns the width of this matrix
    * @return dim_t The width of the matrix
    */
-  dim_t width() const { return _width; };
-  dim_t w() const { return width(); };
+  inline dim_t width() const { return _width; };
+  inline dim_t w() const { return width(); };
 
   /**
    * Returns the height of this matrix
    * @return dim_t The height of the matrix
    */
-  dim_t height() const { return _height; };
-  dim_t h() const { return height(); };
+  inline dim_t height() const { return _height; };
+  inline dim_t h() const { return height(); };
 
   /**
    * Get the value in the matrix at (x, y)
@@ -104,14 +104,14 @@ public:
    * @param x The column of the element to be retrieved
    * @return val_t The value of the element at that position
    */
-  val_t get(const dim_t y, const dim_t x) const { return _data[y][x]; }
+  inline val_t get(const dim_t y, const dim_t x) const { return _data[y][x]; }
   /**
    * Set the value in the matrix at (x, y)
    * @param y The row of the element to be set
    * @param x The column of the element to be set
    * @param dat The data to be copied into that position
    */
-  void set(const dim_t y, const dim_t x, const val_t &dat)
+  inline void set(const dim_t y, const dim_t x, const val_t &dat)
   {
     _data[y][x] = dat;
   }
@@ -134,9 +134,4 @@ public:
    * @param matrix Matrix to be multiplied by
    * @return Matrix* The product matrix
    */
-  Matrix* dot(const Matrix &o)
-  {
-    if (_height != o.w())
-      throw "Invalid matrix dimensions!";
-  }
 };
