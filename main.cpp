@@ -36,11 +36,12 @@ int main()
   // freopen("test.out", "w+", stdout);
   // std::ios_base::sync_with_stdio(false);
   // std::cin.tie(NULL);
-  Matrix<double> *a = matrixIn<double>();
+  //Matrix<double> *a = matrixIn<double>();
 
   //printf("Multiplying matricies...\n");
 
-  Matrix<double> *ret = a->exp();
+  printf("Random matrix:");
+  Matrix<double> *ret = Matrix<double>::random(2, 3);
 
   //printf("Done! (%dx%d) Here it is:\n", ret->h(), ret->w());
   ret->print(15);

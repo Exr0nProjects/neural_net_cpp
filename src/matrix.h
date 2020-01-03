@@ -11,12 +11,24 @@
  */
 template<class val_t> class Matrix
 {
-  typedef unsigned int dim_t;
+  typedef unsigned dim_t;
   val_t **_data = nullptr;
   dim_t _height = 0;
   dim_t _width = 0;
   int _id = rand();
 public:
+  /* static */
+  static Matrix* random(const dim_t height, const dim_t width, const unsigned seed=1)
+  {
+    std::srand(seed);
+    Matrix *ret = new Matrix(height, width);
+    for (int i=0; i<height; ++i)
+      for (int j=0; j<width; ++j)
+      {
+        ret->set(i, j, (val_t) std::rand()/RAND_MAX*2-1); // value between 0 and 1
+      }
+    return ret;
+  }
 
   /* constructors/destructors */
   Matrix() {}
@@ -76,7 +88,7 @@ public:
    * Prints matrix to stdout
    * @param precision Sets precision of output, number of sigfigs
    */
-  void print(const unsigned int precision = 3)
+  void print(const unsigned precision = 3)
   {
     std::cout << std::setprecision(precision);
     for (int i = 0; i < _height; ++i)
