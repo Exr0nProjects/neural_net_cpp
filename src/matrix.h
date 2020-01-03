@@ -117,8 +117,8 @@ public:
   }
 
   /**
-   * Return a copy of this matrix, but transposed
-   * @return matrix A Matrix that is this matrix but transposed
+   * Return a pointer to a new matrix that is the transposition of this matrix
+   * @return Matrix* The transposed matrix
    */
   Matrix* transpose() const
   {
@@ -128,4 +128,10 @@ public:
         ret->set(h, w, this->get(w, h));
     return ret;
   }
+
+  /**
+   * Return a pointer to a new matrix that is this matrix multiplied by another
+   * @param matrix Matrix to be multiplied by
+   * @return Matrix* The product matrix
+   */
 };

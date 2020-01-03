@@ -18,7 +18,7 @@ I plan to write this decently well, and from scratch, which means that I will ne
 
 - [ ] `Matrix`: Mathamatical workhorse
   - [x] Primary constructor `Matrix(vector<vector<long double> > &src)` until I figure out how to make it take initializer lists
-  - [ ] Transpose utility `Matrix matrix.transpose() const -> copy`
+  - [x] Transpose utility `Matrix matrix.transpose() const -> copy`
   - [ ] Dot multiplication utility `Matrix matrix.dot(const Matrix &other) const -> copy`
   - [ ] Exponent utility `Matrix matrix.exp() const -> copy`
 - [ ] `Layer`: Abstract layer-wise math
