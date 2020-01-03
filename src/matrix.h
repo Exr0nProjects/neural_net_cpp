@@ -65,10 +65,9 @@ public:
 
   ~Matrix()
   {
-    printf("Deconstructor called: %d!", _id);
     for (dim_t i=0; i<_height; ++i)
     {
-      delete [] _data[1];
+      delete [] _data[i];
     }
     delete [] _data;
   }

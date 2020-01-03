@@ -38,6 +38,9 @@ int main()
   printf("Done! Here it is:\n");
 
   ret->print();
+
+  printf("Original:\n");
+  mat.print();
 /*
 3 2
 1 2 3
