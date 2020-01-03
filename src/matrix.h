@@ -134,4 +134,23 @@ public:
    * @param matrix Matrix to be multiplied by
    * @return Matrix* The product matrix
    */
+  Matrix *dot(const Matrix &o)
+  {
+    if (_width != o.h())
+      throw "Invalid matrix dimensions!";
+    Matrix *ret = new Matrix(_height, o.w());
+    for (dim_t r = 0; r < _height; ++r)
+    {
+      for (dim_t c = 0; c < o.w(); ++c)
+      {
+        val_t sum = 0;
+        for (dim_t i = 0; i < _width; ++i)
+        {
+          sum += get(r, i) * o.get(i, c);
+        }
+        ret->set(r, c, sum);
+      }
+    }
+    return ret;
+  }
 };
