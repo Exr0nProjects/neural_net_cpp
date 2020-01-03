@@ -30,7 +30,7 @@ Matrix<T>* matrixIn()
   return ret;
 }
 
-int main()
+int main(const int argc, char ** argv)
 {
   // freopen("test.in", "r", stdin);
   // freopen("test.out", "w+", stdout);
@@ -39,6 +39,10 @@ int main()
   //Matrix<double> *a = matrixIn<double>();
 
   //printf("Multiplying matricies...\n");
+  if (argc >= 1)
+    freopen(argv[1], "r", stdin);
+  if (argc >= 2)
+    freopen(argv[2], "w+", stdout);
 
   printf("Random matrix:");
   Matrix<double> *ret = Matrix<double>::random(2, 3);
