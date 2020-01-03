@@ -1,12 +1,16 @@
 #pragma once
 
-#include "matrix.h"
+#include "matrix.cpp"
 
 /**
  * Layer : Abstracted math
  */
 template<class val_t> class Layer
 {
-  Matrix<val_t> syn;
-  // TODO
+  Matrix<val_t> *_syn;
+public:
+  Layer()
+  {
+    
+  }
 };

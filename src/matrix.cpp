@@ -12,10 +12,10 @@
 template<class val_t> class Matrix
 {
   typedef unsigned dim_t;
-  val_t **_data = nullptr;
-  dim_t _height = 0;
-  dim_t _width = 0;
-  int _id = rand();
+  val_t **_data;
+  dim_t _height;
+  dim_t _width;
+  int _id;
 public:
   /* static */
   static Matrix* random(const dim_t height, const dim_t width, const unsigned seed=1)
@@ -31,14 +31,19 @@ public:
   }
 
   /* constructors/destructors */
-  Matrix() {}
+  Matrix(){
+    _data = nullptr;
+    _height = 0;
+    _width = 0;
+    _id = rand();
+  }
 
   /**
    * Empty Initializer Constructor - Create a new emtpy Matrix of w by h
    * @param height Height of the new Matrix
    * @param width Width of the new Matrix
    */
-  Matrix(const dim_t height, const dim_t width): _height(height), _width(width)
+  Matrix(const dim_t height, const dim_t width) : _height(height), _width(width)
   {
     _data = new val_t*[_height];
     for (dim_t i=0; i<_height; ++i)

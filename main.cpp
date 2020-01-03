@@ -8,9 +8,10 @@
 #include <vector>
 
 #pragma once
-#include "src/matrix.h"
-#include "src/layer.h"
-#include "src/network.h"
+#include "src/matrix.cpp"
+#include "src/activation.cpp"
+#include "src/layer.cpp"
+#include "src/network.cpp"
 
 template <class T>
 Matrix<T>* matrixIn()
