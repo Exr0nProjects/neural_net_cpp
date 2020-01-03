@@ -12,8 +12,8 @@ template<class val_t> class Matrix
 {
   typedef unsigned int dim_t;
   val_t **_data = nullptr;
-  dim_t _width = 0;
   dim_t _height = 0;
+  dim_t _width = 0;
   int _id = rand();
 public:
 
@@ -22,10 +22,10 @@ public:
 
   /**
    * Empty Initializer Constructor - Create a new emtpy Matrix of w by h
-   * @param width Width of the new Matrix
    * @param height Height of the new Matrix
+   * @param width Width of the new Matrix
    */
-  Matrix(const dim_t width, const dim_t height): _width(width), _height(height)
+  Matrix(const dim_t height, const dim_t width): _height(height), _width(width)
   {
     _data = new val_t*[_height];
     for (dim_t i=0; i<_height; ++i)
@@ -76,9 +76,9 @@ public:
    */
   void print()
   {
-    for (int j = 0; j < _height; ++j)
+    for (int i = 0; i < _height; ++i)
     {
-      for (int i = 0; i < _width; ++i)
+      for (int j = 0; j < _width; ++j)
         std::cout << " " << get(i, j);
       std::cout << std::endl;
     }
@@ -100,18 +100,18 @@ public:
 
   /**
    * Get the value in the matrix at (x, y)
-   * @param x The column of the element to be retrieved
    * @param y The row of the element to be retrieved
+   * @param x The column of the element to be retrieved
    * @return val_t The value of the element at that position
    */
-  val_t get(const dim_t x, const dim_t y) const { return _data[y][x]; }
+  val_t get(const dim_t y, const dim_t x) const { return _data[y][x]; }
   /**
    * Set the value in the matrix at (x, y)
-   * @param x The column of the element to be set
    * @param y The row of the element to be set
+   * @param x The column of the element to be set
    * @param dat The data to be copied into that position
    */
-  void set(const dim_t x, const dim_t y, const val_t &dat)
+  void set(const dim_t y, const dim_t x, const val_t &dat)
   {
     _data[y][x] = dat;
   }
@@ -122,10 +122,10 @@ public:
    */
   Matrix* transpose() const
   {
-    Matrix *ret = new Matrix(_height, _width);
+    Matrix *ret = new Matrix(_width, _height);
     for (dim_t h=0; h<_height; ++h)
       for (dim_t w=0; w<_width; ++w)
-        ret->set(h, w, this->get(w, h));
+        ret->set(w, h, this->get(h, w));
     return ret;
   }
 
@@ -134,4 +134,9 @@ public:
    * @param matrix Matrix to be multiplied by
    * @return Matrix* The product matrix
    */
+  Matrix* dot(const Matrix &o)
+  {
+    if (_height != o.w())
+      throw "Invalid matrix dimensions!";
+  }
 };

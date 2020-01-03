@@ -16,9 +16,9 @@ int main()
 {
   std::cout << "Please enter the dimensions for the matrix to transpose:" << std::endl;
   int w, h;
-  scanf("%d%d", &w, &h);
+  scanf("%d%d", &h, &w);
 
-  Matrix<int> mat(w, h);
+  Matrix<int> mat(h, w);
 
   for (int i=0; i<h; ++i)
   {
@@ -26,7 +26,7 @@ int main()
     {
       int d;
       scanf("%d", &d);
-      mat.set(j, i, d);
+      mat.set(i, j, d);
     }
   }
 
@@ -34,12 +34,12 @@ int main()
 
   Matrix<int>* ret = mat.transpose();
 
-  printf("Done! (%d, %d) Here it is:\n", ret->w(), ret->h());
+  printf("Done! (%d, %d) Here it is:\n", ret->h(), ret->w());
 
   ret->print();
 
 /*
-3 2
+2 3
 1 2 3
 4 5 6
 */
