@@ -34,17 +34,16 @@ int main()
 {
   // freopen("test.in", "r", stdin);
   // freopen("test.out", "w+", stdout);
-  std::ios_base::sync_with_stdio(false);
-  std::cin.tie(NULL);
-  Matrix<int> *a = matrixIn<int>();
-  Matrix<int> *b = matrixIn<int>();
+  // std::ios_base::sync_with_stdio(false);
+  // std::cin.tie(NULL);
+  Matrix<double> *a = matrixIn<double>();
 
   //printf("Multiplying matricies...\n");
 
-  Matrix<int> *ret = a->dot(*b);
+  Matrix<double> *ret = a->exp();
 
   //printf("Done! (%dx%d) Here it is:\n", ret->h(), ret->w());
-  ret->print();
+  ret->print(15);
 
   /*
 2 3

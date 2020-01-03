@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <cmath>
+#include <iomanip>
 
 /**
  * Matrix: Mathamatical Workhorse
@@ -73,9 +74,11 @@ public:
   /* methods */
   /**
    * Prints matrix to stdout
+   * @param precision Sets precision of output, number of sigfigs
    */
-  void print()
+  void print(const unsigned int precision = 3)
   {
+    std::cout << std::setprecision(precision);
     for (int i = 0; i < _height; ++i)
     {
       for (int j = 0; j < _width; ++j)
@@ -151,6 +154,21 @@ public:
         ret->set(r, c, sum);
       }
     }
+    return ret;
+  }
+
+  /**
+   * Take the `e`th power of each value in the matrix
+   * @return Matrix* The exponentiated matrix
+   */
+  Matrix *exp() const
+  {
+    Matrix *ret = new Matrix(_height, _width);
+    for (dim_t i=0; i<_height; ++i)
+      for (dim_t j=0; j<_width; ++j)
+      {
+        ret->set(i, j, (val_t) std::exp(get(i, j)));
+      }
     return ret;
   }
 };
