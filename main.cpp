@@ -26,24 +26,20 @@ int main()
     {
       int d;
       scanf("%d", &d);
-      mat.set(i, j, d);
+      mat.set(j, i, d);
     }
   }
+  mat.print();
 
   printf("Okay, transposing your matrix...\n");
 
-  mat = mat.transpose();
+  Matrix<int>* ret = mat.transpose();
 
   printf("Done! Here it is:\n");
 
-  for (int i=0; i<h; ++i)
-  {
-    for (int j=0; j<w; ++j)
-      printf("%3d", mat.get(i, j));
-    printf("\n");
-  }
+  ret->print();
 /*
-2 3
+3 2
 1 2 3
 4 5 6
 */

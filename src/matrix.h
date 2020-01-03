@@ -75,16 +75,31 @@ public:
 
   /* methods */
   /**
+   * Prints matrix to stdout
+   */
+  void print()
+  {
+    for (int i=0; i<_width; ++i)
+    {
+      for (int j=0; j<_height; ++j)
+        std::cout << " " << get(i, j);
+      std::cout << std::endl;
+    }
+  }
+
+  /**
    * Returns the width of this matrix
    * @return dim_t The width of the matrix
    */
   dim_t width() const { return _width; };
+  dim_t w() const { return width(); };
 
   /**
    * Returns the height of this matrix
    * @return dim_t The height of the matrix
    */
   dim_t height() const { return _height; };
+  dim_t h() const { return height(); };
 
   /**
    * Get the value in the matrix at (x, y)
@@ -111,7 +126,7 @@ public:
   Matrix* transpose() const
   {
     Matrix *ret = new Matrix(_height, _width);
-    printf("initialized ret with size (%d, %d)\n", ret.width(), ret.height());
+    printf("initialized ret with size (%d, %d)\n", ret->width(), ret->height());
     for (dim_t h=0; h<_height; ++h)
       for (dim_t w=0; w<_width; ++w)
         ret->set(h, w, this->get(w, h));
