@@ -16,7 +16,6 @@
 template <class T>
 Matrix<T>* matrixIn()
 {
-  //std::cout << "Please enter a matrix with dimensions at the top:" << std::endl;
   T h, w;
   std::cin >> h >> w;
   Matrix<T>* ret = new Matrix<T>(h, w);
@@ -37,18 +36,19 @@ int main(const int argc, char ** argv)
     freopen(argv[1], "r", stdin);
   if (argc >= 2)
     freopen(argv[2], "w+", stdout);
-  // freopen("test.in", "r", stdin);
-  // freopen("test.out", "w+", stdout);
   // std::ios_base::sync_with_stdio(false);
   // std::cin.tie(NULL);
-  Matrix<double> *a = matrixIn<double>();
 
-  a->print();
+  std::cout << "Please enter a matrix with dimensions at the top:" << std::endl;
+  typedef double val_t;
+  Matrix<val_t> *inp = matrixIn<val_t>();
+
+  inp->print();
 
   printf("Activating\n");
 
-  Activation<double> *activator = new Activation<double>();
-  Matrix<double> *ret = activator->deriv(a);
+  Layer<val_t> *layer = new Layer<val_t>
+  Matrix<val_t> *ret = activator->deriv(a);
 
   printf("\nanswer\n");
 
