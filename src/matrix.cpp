@@ -31,6 +31,46 @@ public:
     return ret;
   }
 
+  /**
+   * Return a pointer to a new matrix that is the transposition of this matrix
+   * @param src The source matrix (unmodified)
+   * @return Matrix* The transposed matrix
+   */
+  static Matrix *transpose(const Matrix *const src)
+  {
+    Matrix *ret = new Matrix(src->h(), src->w());
+    for (dim_t h = 0; h < src->h(); ++h)
+      for (dim_t w = 0; w < src->w(); ++w)
+        ret->set(w, h, src->get(h, w));
+    return ret;
+  }
+
+  /**
+   * Return a pointer to a new matrix that is this matrix multiplied by another
+   * @param lhs Matrix to be multiplied on
+   * @param rhs Matrix to be multiplied by
+   * @return Matrix* The product matrix
+   */
+  static Matrix *dot(const Matrix *const lhs, const Matrix *const rhs)
+  {
+    if (lhs->w() != rhs->h())
+      throw "Invalid matrix dimensions!";
+    Matrix *ret = new Matrix(lhs->h(), rhs->w());
+    for (dim_t r = 0; r < lhs->h(); ++r)
+    {
+      for (dim_t c = 0; c < rhs->w(); ++c)
+      {
+        val_t sum = 0;
+        for (dim_t i = 0; i < lhs->w(); ++i)
+        {
+          sum += lhs->get(r, i) * rhs->get(i, c);
+        }
+        ret->set(r, c, sum);
+      }
+    }
+    return ret;
+  }
+
   /* constructors/destructors */
   Matrix(){
     _data = nullptr;
@@ -141,43 +181,22 @@ public:
    * Return a pointer to a new matrix that is the transposition of this matrix
    * @return Matrix* The transposed matrix
    */
-  Matrix* transpose() const
+  Matrix &transpose() const
   {
-    Matrix *ret = new Matrix(_width, _height);
     for (dim_t h=0; h<_height; ++h)
-      for (dim_t w=0; w<_width; ++w)
-        ret->set(w, h, this->get(h, w));
-    return ret;
-  }
-
-  /**
-   * Return a pointer to a new matrix that is this matrix multiplied by another
-   * @param matrix Matrix to be multiplied by
-   * @return Matrix* The product matrix
-   */
-  Matrix *dot(const Matrix &o) const
-  {
-    if (_width != o.h())
-      throw "Invalid matrix dimensions!";
-    Matrix *ret = new Matrix(_height, o.w());
-    for (dim_t r = 0; r < _height; ++r)
-    {
-      for (dim_t c = 0; c < o.w(); ++c)
+      for (dim_t w=h+1; w<_width; ++w)
       {
-        val_t sum = 0;
-        for (dim_t i = 0; i < _width; ++i)
-        {
-          sum += get(r, i) * o.get(i, c);
-        }
-        ret->set(r, c, sum);
+        val_t t = get(h, w);
+        set(h, w, get(w, h));
+        set(w, h, t);
       }
-    }
-    return ret;
+    return *this;
   }
 
   /**
    * Take the `e`th power of each value in the matrix
    * @return Matrix* The exponentiated matrix
+   * @deprecated
    */
   Matrix *exp() const
   {

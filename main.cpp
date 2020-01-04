@@ -47,13 +47,12 @@ int main(const int argc, char ** argv)
 
   printf("Activating\n");
 
-  Layer<val_t> *layer = new Layer<val_t>
-  Matrix<val_t> *ret = activator->deriv(a);
+  Layer<val_t> *layer = new Layer<val_t>;
 
   printf("\nanswer\n");
 
   //printf("Done! (%dx%d) Here it is:\n", ret->h(), ret->w());
-  ret->print(15);
+  //ret->print(15);
 
   /*
 2 3

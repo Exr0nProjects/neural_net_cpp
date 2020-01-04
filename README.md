@@ -41,4 +41,8 @@ With all the base code written, I plan to write a simple `int main()` driver tha
 
 Having a working CPU neural net in Python, I can finally complete the dream by converting my framework from Stage 1 to work with CUDA. This will probably be a pain, so I will update this section of the README later.
 
+### Other Notes
+
+1. Class vs instance method model: Class methods take pointers to their instances and return pointers to operated copies. Instance methods mutate themselves
+
 All this being said, I will start fully considering the tasks that each class must perform and what needs to be implementd. I will update this README soon...

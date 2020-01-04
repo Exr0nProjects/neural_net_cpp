@@ -54,7 +54,7 @@ public:
    * Copy constructor
    * @param src The Layer to copy from
    */
-  Layer(const Layer &src): Layer(src.in_size(), src.out_size()):
+  Layer(const Layer &src): Layer(src.in_size(), src.out_size())
   {
     _syn = new Matrix<val_t>(*(src.syn_raw()));
     _actv = new Activation<val_t>(*(src.actv_raw()));
@@ -77,7 +77,7 @@ public:
    * @param in Matrix* of height in_size
    * @return Matrix* of height out_size
    */
-  Matrix<val_t> *feed(const Matrix *in)
+  Matrix<val_t> *feed(const Matrix<val_t> *in) const
   {
     
   }
