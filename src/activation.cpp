@@ -1,3 +1,5 @@
+#pragma once
+
 #include "matrix.cpp"
 
 template <class val_t> class Activation
@@ -9,7 +11,16 @@ public:
   {
     _type = "sigmoid";
   }
+  Activation(std::string activation)
+  {
+    _type = activation;
+  }
 
+  /**
+   * Activate
+   * @param in Matrix* to do math on
+   * @return Matrix* A new matrix with result of function
+   */
   Matrix<val_t>* operator() (const Matrix<val_t> *in) const
   {
     Matrix<val_t>* ret = new Matrix<val_t>(in->h(), in->w());
@@ -26,6 +37,11 @@ public:
     return ret;
   }
 
+  /**
+   * Derivative - used for backpropogation
+   * @param in Matrix* to do math on
+   * @return Matrix* A new Matrix with the result of the math
+   */
   Matrix<val_t>* deriv(const Matrix<val_t> *in) const
   {
     Matrix<val_t> *ret = new Matrix<val_t>(in->h(), in->w());
