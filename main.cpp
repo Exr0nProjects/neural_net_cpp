@@ -45,14 +45,32 @@ int main(const int argc, char ** argv)
 
   inp->print();
 
-  printf("Activating\n");
+  printf("Creating layer\n");
 
-  Layer<val_t> *layer = new Layer<val_t>;
+  Layer<val_t> *layer = new Layer<val_t>(inp->w(), 1);
 
-  printf("\nanswer\n");
+  printf("Created a %dx%d layer\n", layer->in_size(), layer->out_size());
+  
+  layer->syn_raw()->print();
+
+  printf("\nTraining...\n");
+
+  const int CYCLES = 60000;
+  const int UPDATES = 10;
+
+  // Matrix<val_t> * l1 = layer->feed(inp);
+
+  for (int i=1; i<CYCLES; ++i)
+  {
+    auto l1 = layer->feed(inp);
+    if (i % (CYCLES/UPDATES) == 0)
+    {
+      printf("%d%% progress: \n", i*100/CYCLES);
+    }
+  }
 
   //printf("Done! (%dx%d) Here it is:\n", ret->h(), ret->w());
-  //ret->print(15);
+  //l1->print(15);
 
   /*
 2 3

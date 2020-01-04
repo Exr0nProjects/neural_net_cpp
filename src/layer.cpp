@@ -6,6 +6,7 @@
 #include <string>
 #include <cmath>
 #include <random>
+#include <exception>
 
 /**
  * Layer : Abstracted math
@@ -34,10 +35,10 @@ public:
    */
   Layer(const dim_t in_size, const dim_t out_size=0, const unsigned seed=1)
   {
-    _width = in_size;
-    _height = out_size;
-    if (_height < 0) _height = _width;
-    _syn = Matrix<val_t>::random(_width, _height, seed);
+    _height = in_size;
+    _width = out_size;
+    if (_width == 0) _width = _height;
+    _syn = Matrix<val_t>::random(_height, _width, seed);
   }
   /**
    * "Activation" constructor
@@ -67,8 +68,8 @@ public:
   
   /* methods */
   // getters
-  dim_t in_size() const {return _width;}
-  dim_t out_size() const {return _height;}
+  dim_t in_size() const {return _height;}
+  dim_t out_size() const {return _width;}
   const Matrix<val_t> *const syn_raw() const {return _syn;} 
   const Activation<val_t> *const actv_raw() const {return _actv;}
 
@@ -79,6 +80,12 @@ public:
    */
   Matrix<val_t> *feed(const Matrix<val_t> *in) const
   {
-    
+    if (in->w() != _height)
+      throw std::domain_error("Invalid input matrix width!");
+    //const Matrix<val_t> *p = Matrix::random(in->h(), _width);
+    Matrix<val_t> *p = Matrix<val_t>::dot(in, _syn);
+    p = (*_actv)(p);
+    return p;
+    //return nullptr;
   }
 };

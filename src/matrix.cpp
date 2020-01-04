@@ -54,7 +54,7 @@ public:
   static Matrix *dot(const Matrix *const lhs, const Matrix *const rhs)
   {
     if (lhs->w() != rhs->h())
-      throw "Invalid matrix dimensions!";
+      throw std::domain_error("Invalid matrix dimensions!");
     Matrix *ret = new Matrix(lhs->h(), rhs->w());
     for (dim_t r = 0; r < lhs->h(); ++r)
     {
@@ -102,7 +102,7 @@ public:
     {
       // check shape
       if (src[i].size() != _width)
-        throw "Non rectangular vector input!";
+        throw std::domain_error("Non rectangular vector input!");
       // copy row
       for (dim_t j=0; j<_width; ++j)
         set(i, j, src[i][j]);

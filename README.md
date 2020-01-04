@@ -22,8 +22,8 @@ I plan to write this decently well, and from scratch, which means that I will ne
   - [x] Dot multiplication utility `Matrix matrix.dot(const Matrix &other) const -> copy`
   - [x] Exponent utility `Matrix matrix.exp() const -> copy`
 - [ ] `Layer`: Abstract layer-wise math
-  - [ ] Primary constructor `Layer(const int size)`
-  - [ ] Implement `Matrix layer.feed(const Matrix &activations) -> activations`
+  - [x] Primary constructor `Layer(const int size)`
+  - [x] Implement `Matrix layer.feed(const Matrix &activations) -> activations`
   - [ ] Implement `Matrix layer.backprop(const Matrix &target) -> delta` which is to be used on the final layer of the network
   - [ ] Implement `Matrix layer.backprop(const Layer &previous) -> delta` which is to be used for intermediate layers
 - [ ] `Network`: Interface for the other code
