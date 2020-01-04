@@ -63,6 +63,8 @@ int main(const int argc, char ** argv)
   for (int i=1; i<CYCLES; ++i)
   {
     auto l1 = layer->feed(inp);
+
+
     if (i % (CYCLES/UPDATES) == 0)
     {
       printf("%d%% progress: \n", i*100/CYCLES);
