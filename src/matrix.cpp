@@ -177,6 +177,13 @@ public:
     _data[y][x] = dat;
   }
 
+  void forEach(function<void(dim_t,dim_t,Matrix<val_t>*const,Matrix<val_t>*const)> const&lambda)
+  {
+    for (dim_t i=0; i<h(); ++i)
+      for (dim_t j=0; j<w(); ++j)
+      lamda();
+  }
+
   /**
    * Operator overloads
    */
