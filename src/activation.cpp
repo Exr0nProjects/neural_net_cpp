@@ -12,7 +12,6 @@ public:
 
   Matrix<val_t>* operator() (const Matrix<val_t> *in) const
   {
-    printf("Runing through activation fxn...\n");
     Matrix<val_t>* ret = new Matrix<val_t>(in->h(), in->w());
     for (dim_t i=0; i<in->h(); ++i)
       for (dim_t j=0; j<in->w(); ++j)
@@ -29,7 +28,7 @@ public:
 
   Matrix<val_t>* deriv(const Matrix<val_t> *in) const
   {
-    Matrix<val_t> ret = new Matrix<val_t>(in->h(), in->w());
+    Matrix<val_t> *ret = new Matrix<val_t>(in->h(), in->w());
     for (dim_t i=0; i<in->h(); ++i)
       for (dim_t j=0; j<in->w(); ++j)
       {

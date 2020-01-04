@@ -48,7 +48,7 @@ int main(const int argc, char ** argv)
   printf("Activating\n");
 
   Activation<double> *activator = new Activation<double>();
-  Matrix<double> *ret = (*activator)(a);
+  Matrix<double> *ret = activator->deriv(a);
 
   printf("\nanswer\n");
 
