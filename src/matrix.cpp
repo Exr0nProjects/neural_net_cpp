@@ -17,6 +17,7 @@ template<class val_t> class Matrix
   dim_t _width;
   int _id;
 public:
+
   /* static */
   static Matrix* random(const dim_t height, const dim_t width, const unsigned seed=1)
   {
@@ -93,7 +94,7 @@ public:
    * Prints matrix to stdout
    * @param precision Sets precision of output, number of sigfigs
    */
-  void print(const unsigned precision = 3)
+  void print(const unsigned precision = 3) const
   {
     std::cout << std::setprecision(precision);
     for (int i = 0; i < _height; ++i)

@@ -33,20 +33,24 @@ Matrix<T>* matrixIn()
 
 int main(const int argc, char ** argv)
 {
-  // freopen("test.in", "r", stdin);
-  // freopen("test.out", "w+", stdout);
-  // std::ios_base::sync_with_stdio(false);
-  // std::cin.tie(NULL);
-  //Matrix<double> *a = matrixIn<double>();
-
-  //printf("Multiplying matricies...\n");
   if (argc >= 1)
     freopen(argv[1], "r", stdin);
   if (argc >= 2)
     freopen(argv[2], "w+", stdout);
+  // freopen("test.in", "r", stdin);
+  // freopen("test.out", "w+", stdout);
+  // std::ios_base::sync_with_stdio(false);
+  // std::cin.tie(NULL);
+  Matrix<double> *a = matrixIn<double>();
 
-  printf("Random matrix:");
-  Matrix<double> *ret = Matrix<double>::random(2, 3);
+  a->print();
+
+  printf("Activating\n");
+
+  Activation<double> *activator = new Activation<double>();
+  Matrix<double> *ret = (*activator)(a);
+
+  printf("\nanswer\n");
 
   //printf("Done! (%dx%d) Here it is:\n", ret->h(), ret->w());
   ret->print(15);
