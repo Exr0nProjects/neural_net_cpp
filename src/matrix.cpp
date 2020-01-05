@@ -200,6 +200,19 @@ public:
     // const auto op = [](const dim_t i, const dim_t j, Matrix<val_t> *l, const Matrix<val_t> *r){l->set(i, j, r->get(i, j));};
     // return Matrix(h(), w()).forEach(op);
   }
+  Matrix<val_t> operator*(const Matrix<val_t> &o) const
+  {
+    if (w() != o.w() || h() != o.h())
+      throw std::domain_error("Invalid matrix dimesions for element-wise subtract!");
+    Matrix ret(h(), w());
+    for (dim_t i=0; i<h(); ++i)
+      for (dim_t j=0; j<w(); ++j)
+        ret.set(i, j, get(i, j)*o.get(i, j));
+    printf("Address inside fxn: %d\n", &ret);
+    return ret;
+    // const auto op = [](const dim_t i, const dim_t j, Matrix<val_t> *l, const Matrix<val_t> *r){l->set(i, j, r->get(i, j));};
+    // return Matrix(h(), w()).forEach(op);
+  }
 
   /**
    * Return a pointer to a new matrix that is the transposition of this matrix

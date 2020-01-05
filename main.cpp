@@ -53,7 +53,7 @@ int main(const int argc, char ** argv)
   
   layer->syn_raw()->print();
 
-  auto nxt = *inp - *inp;
+  auto nxt = *inp * *inp;
   printf("Addr   outside fxn: %d\n", &nxt);
   nxt.print();
 
