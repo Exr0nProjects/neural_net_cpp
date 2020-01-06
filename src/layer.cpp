@@ -67,11 +67,26 @@ public:
   }
   
   /* methods */
+  // template<typename... Args> // https://stackoverflow.com/a/16338804
+  // void forEach(std::function<void()> const& lambda, Args... args)
+
   // getters
   dim_t in_size() const {return _height;}
   dim_t out_size() const {return _width;}
   const Matrix<val_t> *const syn_raw() const {return _syn;} 
   const Activation<val_t> *const actv_raw() const {return _actv;}
+
+  // setters
+  void update_raw(Matrix<val_t> *mod)
+  {
+    if (mod->w() != _width || mod->h() != _height)
+      throw std::domain_error("Invalid matrix dimensions!");
+    for (dim_t i=0; i<_height; ++i)
+      for (dim_t j=0; j<_width; ++j)
+      {
+        _syn->set(i, j, _syn->get(i, j)+mod->get(i, j));
+      }
+  }
 
   /**
    * Feed - feed forward through this layer

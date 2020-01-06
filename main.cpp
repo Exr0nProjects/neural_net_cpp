@@ -42,6 +42,7 @@ int main(const int argc, char ** argv)
   std::cout << "Please enter a matrix with dimensions at the top:" << std::endl;
   typedef double val_t;
   Matrix<val_t> *inp = matrixIn<val_t>();
+  Matrix<val_t> *expected = matrixIn<val_t>();
 
   inp->print();
 
@@ -53,16 +54,29 @@ int main(const int argc, char ** argv)
   
   layer->syn_raw()->print();
 
-  auto nxt = *inp * *inp;
-  printf("Addr   outside fxn: %d\n", &nxt);
-  nxt.print();
+  // auto nxt = *inp * *inp;
+  // printf("Addr   outside fxn: %d\n", &nxt);
+  // nxt.print();
 
   printf("\nTraining...\n");
 
   const int CYCLES = 60000;
   const int UPDATES = 10;
 
-  // Matrix<val_t> * l1 = layer->feed(inp);
+  Matrix<val_t> * l1 = layer->feed(inp);
+
+  // printf("\nexp:\n"); expected->print();
+  // printf("\nsyn:\n"); layer->syn_raw()->print();
+
+  Matrix<val_t> l1_error = *expected - *(l1); // TODO: improve the ux of this i mean seriously?
+  // printf("pre segfault?\n");
+  Matrix<val_t> l1_delta = l1_error * *(layer->actv_raw()->deriv(l1));
+
+  // printf("post segfault?\n");
+
+  // Matrix<val_t>::transpose(inp)->print();
+
+  layer->update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), &l1_delta));
 
   for (int i=1; i<CYCLES; ++i)
   {
@@ -71,7 +85,12 @@ int main(const int argc, char ** argv)
 
     if (i % (CYCLES/UPDATES) == 0)
     {
-      printf("%d%% progress: \n", i*100/CYCLES);
+      l1_error.print();
+      val_t average_error = 0;
+      for (int i=0; i<l1_error.h(); ++i)
+        average_error += abs(l1_error.get(i, 0));
+      average_error /= l1_error.h();
+      printf("%d%% progress: %d\n", i*100/CYCLES, average_error);
     }
   }
 

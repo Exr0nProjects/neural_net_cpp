@@ -64,11 +64,13 @@ public:
     for (dim_t i=0; i<in->h(); ++i)
       for (dim_t j=0; j<in->w(); ++j)
       {
+        // printf("(%d, %d) pre\n", i, j);
         val_t t = NULL;
-        if (_type == "sigmoid")
-        {
+        // if (strcmp(_type.c_str(), "sigmoid")==0) // TODO: causes segfault
+        // {
           t = in->get(i, j) * (1-in->get(i, j));
-        }
+        // }
+        // printf("(%d, %d) post\n", i, j);
         ret->set(i, j, t);
       }
     return ret;

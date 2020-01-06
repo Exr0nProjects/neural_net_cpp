@@ -38,7 +38,7 @@ public:
    */
   static Matrix *transpose(const Matrix *const src)
   {
-    Matrix *ret = new Matrix(src->h(), src->w());
+    Matrix *ret = new Matrix(src->w(), src->h());
     for (dim_t h = 0; h < src->h(); ++h)
       for (dim_t w = 0; w < src->w(); ++w)
         ret->set(w, h, src->get(h, w));
@@ -54,7 +54,7 @@ public:
   static Matrix *dot(const Matrix *const lhs, const Matrix *const rhs)
   {
     if (lhs->w() != rhs->h())
-      throw std::domain_error("Invalid matrix dimensions!");
+      throw std::domain_error("Invalid matrix dimensions for static dot multiplication!");
     Matrix *ret = new Matrix(lhs->h(), rhs->w());
     for (dim_t r = 0; r < lhs->h(); ++r)
     {
@@ -202,8 +202,9 @@ public:
   }
   Matrix<val_t> operator*(const Matrix<val_t> &o) const
   {
+    // printf("got to operator*\n");
     if (w() != o.w() || h() != o.h())
-      throw std::domain_error("Invalid matrix dimesions for element-wise subtract!");
+      throw std::domain_error("Invalid matrix dimesions for element-wise multiply!");
     Matrix ret(h(), w());
     for (dim_t i=0; i<h(); ++i)
       for (dim_t j=0; j<w(); ++j)
