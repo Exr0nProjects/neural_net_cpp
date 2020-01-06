@@ -14,18 +14,18 @@
 #include "src/network.cpp"
 
 template <class T>
-Matrix<T>* matrixIn()
+Matrix<T> matrixIn()
 {
   T h, w;
   std::cin >> h >> w;
-  Matrix<T>* ret = new Matrix<T>(h, w);
+  Matrix<T> ret(h, w);
 
   for (int i=0; i<h; ++i)
     for (int j=0; j<w; ++j)
     {
       T d;
       std::cin >> d;
-      ret->set(i, j, d);
+      ret.set(i, j, d);
     }
   return ret;
 }
@@ -41,14 +41,14 @@ int main(const int argc, char ** argv)
 
   std::cout << "Please enter a matrix with dimensions at the top:" << std::endl;
   typedef double val_t;
-  Matrix<val_t> *inp = matrixIn<val_t>();
-  Matrix<val_t> *expected = matrixIn<val_t>();
+  Matrix<val_t> inp = matrixIn<val_t>();
+  Matrix<val_t> expected = matrixIn<val_t>();
 
-  inp->print();
+  inp.print();
 
   printf("Creating layer\n");
 
-  Layer<val_t> *layer = new Layer<val_t>(inp->w(), 1);
+  Layer<val_t> *layer = new Layer<val_t>(inp.w(), 1);
 
   printf("Created a %dx%d layer\n", layer->in_size(), layer->out_size());
 
@@ -58,17 +58,20 @@ int main(const int argc, char ** argv)
 
   printf("\nTraining...\n");
 
-  const int CYCLES = 6000000;
+  const int CYCLES = 6000;
   const int UPDATES = 10;
 
   for (int i=1; i<CYCLES; ++i)
   {
-    Matrix<val_t> * l1 = layer->feed(inp);
+    Matrix<val_t> l1 = layer->feed(inp);
 
-    Matrix<val_t> l1_error = *expected - *(l1); // TODO: improve the ux of this i mean seriously?
+    // expected.print();
+    // l1.print();
 
-    Matrix<val_t> l1_delta = l1_error * *(layer->actv_raw()->deriv(l1));
-    layer->update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), &l1_delta));
+    Matrix<val_t> l1_error = expected - l1; // TODO: errors
+
+    Matrix<val_t> l1_delta = l1_error * (layer->actv_raw()->deriv(l1));
+    layer->update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), l1_delta));
 
     if (i % (CYCLES/UPDATES) == 0)
     {
@@ -77,11 +80,9 @@ int main(const int argc, char ** argv)
       for (int i=0; i<l1_error.h(); ++i)
         average_error += abs(l1_error.get(i, 0));
       average_error /= l1_error.h();
-      printf("%d%% progress: %.5f\n", i*100/CYCLES, average_error);
+      printf("%d%% progress - error = %.5f\n", i*100/CYCLES, average_error);
       //layer->syn_raw()->print();
     }
-
-    delete l1;
   }
 
   //printf("Done! (%dx%d) Here it is:\n", ret->h(), ret->w());

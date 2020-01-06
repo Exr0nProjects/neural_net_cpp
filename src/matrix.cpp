@@ -36,12 +36,20 @@ public:
    * @param src The source matrix (unmodified)
    * @return Matrix* The transposed matrix
    */
-  static Matrix *transpose(const Matrix *const src)
+  static Matrix transpose(const Matrix *const src)
   {
-    Matrix *ret = new Matrix(src->w(), src->h());
+    Matrix ret(src->w(), src->h());
     for (dim_t h = 0; h < src->h(); ++h)
       for (dim_t w = 0; w < src->w(); ++w)
-        ret->set(w, h, src->get(h, w));
+        ret.set(w, h, src->get(h, w));
+    return ret;
+  }
+  static Matrix transpose(const Matrix &src)
+  {
+    Matrix ret(src.w(), src.h());
+    for (dim_t h = 0; h < src.h(); ++h)
+      for (dim_t w = 0; w < src.w(); ++w)
+        ret.set(w, h, src.get(h, w));
     return ret;
   }
 
@@ -51,11 +59,11 @@ public:
    * @param rhs Matrix to be multiplied by
    * @return Matrix* The product matrix
    */
-  static Matrix *dot(const Matrix *const lhs, const Matrix *const rhs)
+  static Matrix dot(const Matrix *const lhs, const Matrix *const rhs)
   {
     if (lhs->w() != rhs->h())
       throw std::domain_error("Invalid matrix dimensions for static dot multiplication!");
-    Matrix *ret = new Matrix(lhs->h(), rhs->w());
+    Matrix ret(lhs->h(), rhs->w());
     for (dim_t r = 0; r < lhs->h(); ++r)
     {
       for (dim_t c = 0; c < rhs->w(); ++c)
@@ -65,7 +73,26 @@ public:
         {
           sum += lhs->get(r, i) * rhs->get(i, c);
         }
-        ret->set(r, c, sum);
+        ret.set(r, c, sum);
+      }
+    }
+    return ret;
+  }
+  static Matrix dot(const Matrix &lhs, const Matrix &rhs)
+  {
+    if (lhs.w() != rhs.h())
+      throw std::domain_error("Invalid matrix dimensions for static dot multiplication!");
+    Matrix ret(lhs.h(), rhs.w());
+    for (dim_t r = 0; r < lhs.h(); ++r)
+    {
+      for (dim_t c = 0; c < rhs.w(); ++c)
+      {
+        val_t sum = 0;
+        for (dim_t i = 0; i < lhs.w(); ++i)
+        {
+          sum += lhs.get(r, i) * rhs.get(i, c);
+        }
+        ret.set(r, c, sum);
       }
     }
     return ret;
@@ -113,7 +140,7 @@ public:
    * Copy Constructor - Copy a matrix
    * @param src Matrix to copy from
    */
-  Matrix(const Matrix &src): Matrix(src.width(), src.height())
+  Matrix(const Matrix &src): Matrix(src.height(), src.width())
   {
     for (dim_t i=0; i<_height; ++i)
       for (dim_t j=0; j<_width; ++j)
@@ -236,13 +263,13 @@ public:
    * @return Matrix* The exponentiated matrix
    * @deprecated
    */
-  Matrix *exp() const
+  Matrix<val_t> exp() const
   {
-    Matrix *ret = new Matrix(_height, _width);
+    Matrix ret(_height, _width);
     for (dim_t i=0; i<_height; ++i)
       for (dim_t j=0; j<_width; ++j)
       {
-        ret->set(i, j, (val_t) std::exp(get(i, j)));
+        ret.set(i, j, (val_t) std::exp(get(i, j)));
       }
     return ret;
   }

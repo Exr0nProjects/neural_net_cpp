@@ -77,14 +77,14 @@ public:
   const Activation<val_t> *const actv_raw() const {return _actv;}
 
   // setters
-  void update_raw(Matrix<val_t> *mod)
+  void update_raw(const Matrix<val_t> &mod)
   {
-    if (mod->w() != _width || mod->h() != _height)
+    if (mod.w() != _width || mod.h() != _height)
       throw std::domain_error("Invalid matrix dimensions!");
     for (dim_t i=0; i<_height; ++i)
       for (dim_t j=0; j<_width; ++j)
       {
-        _syn->set(i, j, _syn->get(i, j)+mod->get(i, j));
+        _syn->set(i, j, _syn->get(i, j)+mod.get(i, j));
       }
   }
 
@@ -93,13 +93,23 @@ public:
    * @param in Matrix* of height in_size
    * @return Matrix* of height out_size
    */
-  Matrix<val_t> *feed(const Matrix<val_t> *in) const
+  Matrix<val_t> feed(const Matrix<val_t> *in) const
   {
     if (in->w() != _height)
       throw std::domain_error("Invalid input matrix width!");
     //const Matrix<val_t> *p = Matrix::random(in->h(), _width);
-    Matrix<val_t> *p = Matrix<val_t>::dot(in, _syn);
+    Matrix<val_t> p = Matrix<val_t>::dot(in, _syn);
     p = (*_actv)(p);
+    return p;
+    //return nullptr;
+  }
+  Matrix<val_t> feed(const Matrix<val_t> &in) const
+  {
+    if (in.w() != _height)
+      throw std::domain_error("Invalid input matrix width!");
+    //const Matrix<val_t> *p = Matrix::random(in->h(), _width);
+    Matrix<val_t> p = Matrix<val_t>::dot(&in, _syn);
+    (*_actv)(p);
     return p;
     //return nullptr;
   }
