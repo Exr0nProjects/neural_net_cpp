@@ -40,13 +40,11 @@ int main(const int argc, char ** argv)
   // std::cin.tie(NULL);
 
   std::cout << "Please enter a matrix with dimensions at the top:" << std::endl;
-  typedef double val_t;
+  typedef float val_t;
   Matrix<val_t> inp = matrixIn<val_t>();
   Matrix<val_t> expected = matrixIn<val_t>();
 
   inp.print();
-
-  printf("Creating layer\n");
 
   Layer<val_t> *layer = new Layer<val_t>(inp.w(), 1);
 
@@ -58,8 +56,8 @@ int main(const int argc, char ** argv)
 
   printf("\nTraining...\n");
 
-  const int CYCLES = 6000;
-  const int UPDATES = 10;
+  const int CYCLES = 600;
+  const int UPDATES = 20;
 
   for (int i=1; i<CYCLES; ++i)
   {
@@ -75,7 +73,7 @@ int main(const int argc, char ** argv)
 
     if (i % (CYCLES/UPDATES) == 0)
     {
-      l1_error.print();
+      //l1_error.print();
       val_t average_error = 0;
       for (int i=0; i<l1_error.h(); ++i)
         average_error += abs(l1_error.get(i, 0));

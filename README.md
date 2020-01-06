@@ -50,3 +50,8 @@ Having a working CPU neural net in Python, I can finally complete the dream by c
 1. Class vs instance method model: Class methods take pointers to their instances and return pointers to operated copies. Instance methods mutate themselves
 
 All this being said, I will start fully considering the tasks that each class must perform and what needs to be implementd. I will update this README soon...
+
+### Next Steps
+
+- Add more activation functions (relu, tanh, softmax)
+- Add bias
