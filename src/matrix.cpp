@@ -195,7 +195,7 @@ public:
     for (dim_t i=0; i<h(); ++i)
       for (dim_t j=0; j<w(); ++j)
         ret.set(i, j, get(i, j)-o.get(i, j));
-    printf("Address inside fxn: %d\n", &ret);
+    // printf("Address inside fxn: %d\n", &ret);
     return ret;
     // const auto op = [](const dim_t i, const dim_t j, Matrix<val_t> *l, const Matrix<val_t> *r){l->set(i, j, r->get(i, j));};
     // return Matrix(h(), w()).forEach(op);
@@ -209,7 +209,7 @@ public:
     for (dim_t i=0; i<h(); ++i)
       for (dim_t j=0; j<w(); ++j)
         ret.set(i, j, get(i, j)*o.get(i, j));
-    printf("Address inside fxn: %d\n", &ret);
+    // printf("Address inside fxn: %d\n", &ret);
     return ret;
     // const auto op = [](const dim_t i, const dim_t j, Matrix<val_t> *l, const Matrix<val_t> *r){l->set(i, j, r->get(i, j));};
     // return Matrix(h(), w()).forEach(op);

@@ -51,8 +51,6 @@ int main(const int argc, char ** argv)
   Layer<val_t> *layer = new Layer<val_t>(inp->w(), 1);
 
   printf("Created a %dx%d layer\n", layer->in_size(), layer->out_size());
-  
-  layer->syn_raw()->print();
 
   // auto nxt = *inp * *inp;
   // printf("Addr   outside fxn: %d\n", &nxt);
@@ -60,28 +58,17 @@ int main(const int argc, char ** argv)
 
   printf("\nTraining...\n");
 
-  const int CYCLES = 60000;
+  const int CYCLES = 6000000;
   const int UPDATES = 10;
-
-  Matrix<val_t> * l1 = layer->feed(inp);
-
-  // printf("\nexp:\n"); expected->print();
-  // printf("\nsyn:\n"); layer->syn_raw()->print();
-
-  Matrix<val_t> l1_error = *expected - *(l1); // TODO: improve the ux of this i mean seriously?
-  // printf("pre segfault?\n");
-  Matrix<val_t> l1_delta = l1_error * *(layer->actv_raw()->deriv(l1));
-
-  // printf("post segfault?\n");
-
-  // Matrix<val_t>::transpose(inp)->print();
-
-  layer->update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), &l1_delta));
 
   for (int i=1; i<CYCLES; ++i)
   {
-    auto l1 = layer->feed(inp);
+    Matrix<val_t> * l1 = layer->feed(inp);
 
+    Matrix<val_t> l1_error = *expected - *(l1); // TODO: improve the ux of this i mean seriously?
+
+    Matrix<val_t> l1_delta = l1_error * *(layer->actv_raw()->deriv(l1));
+    layer->update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), &l1_delta));
 
     if (i % (CYCLES/UPDATES) == 0)
     {
@@ -90,8 +77,11 @@ int main(const int argc, char ** argv)
       for (int i=0; i<l1_error.h(); ++i)
         average_error += abs(l1_error.get(i, 0));
       average_error /= l1_error.h();
-      printf("%d%% progress: %d\n", i*100/CYCLES, average_error);
+      printf("%d%% progress: %.5f\n", i*100/CYCLES, average_error);
+      //layer->syn_raw()->print();
     }
+
+    delete l1;
   }
 
   //printf("Done! (%dx%d) Here it is:\n", ret->h(), ret->w());
