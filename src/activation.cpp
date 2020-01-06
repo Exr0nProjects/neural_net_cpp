@@ -30,7 +30,7 @@ public:
         val_t t = NULL;
         // if (_type == "sigmoid")
         // {
-          t = 1 / (1 + (std::exp(in.get(i, j))));
+          t = 1 / (1 + (std::exp(-1*in.get(i, j))));
         // }
         ret.set(i, j, t);
       }
@@ -46,7 +46,7 @@ public:
         val_t t = INFINITY;
         // if (strcmp(_type.c_str(), "sigmoid") == 0) // TODO: causes segfault
         // {
-          t = 1 / (1 + (std::exp(in.get(i, j))));
+          t = 1 / (1 + (std::exp(-1*in.get(i, j))));
         // }
         in.set(i, j, t);
       }

@@ -56,8 +56,8 @@ int main(const int argc, char ** argv)
 
   printf("\nTraining...\n");
 
-  const int CYCLES = 600;
-  const int UPDATES = 20;
+  const int CYCLES = 6000;
+  const int UPDATES = 10; 
 
   for (int i=1; i<CYCLES; ++i)
   {
@@ -73,12 +73,18 @@ int main(const int argc, char ** argv)
 
     if (i % (CYCLES/UPDATES) == 0)
     {
-      //l1_error.print();
+      printf("Input:\n");
+      inp.print();
+      printf("Output:\n");
+      l1.print();
+      printf("Exepected:\n");
+      expected.print();
+      // l1_error.print();
       val_t average_error = 0;
       for (int i=0; i<l1_error.h(); ++i)
         average_error += abs(l1_error.get(i, 0));
       average_error /= l1_error.h();
-      printf("%d%% progress - error = %.5f\n", i*100/CYCLES, average_error);
+      printf("\n%d%% progress - error = %.5f\n\n----------\n", i*100/CYCLES, average_error);
       //layer->syn_raw()->print();
     }
   }
