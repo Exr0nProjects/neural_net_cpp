@@ -56,8 +56,8 @@ int main(const int argc, char ** argv)
 
   printf("\nTraining...\n");
 
-  const int CYCLES = 6000;
-  const int UPDATES = 10; 
+  const int CYCLES = 60000;
+  const int UPDATES = 20; 
 
   for (int i=1; i<CYCLES; ++i)
   {
