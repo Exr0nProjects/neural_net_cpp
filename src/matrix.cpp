@@ -245,6 +245,7 @@ public:
   /**
    * Return a pointer to a new matrix that is the transposition of this matrix
    * @return Matrix* The transposed matrix
+   * @deprecated
    */
   Matrix &transpose() const
   {

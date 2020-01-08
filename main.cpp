@@ -46,9 +46,10 @@ int main(const int argc, char ** argv)
 
   inp.print();
 
-  Layer<val_t> *layer = new Layer<val_t>(inp.w(), 1);
+  Layer<val_t> *layer1 = new Layer<val_t>(inp.w(), 3);
+  Layer<val_t> *layer2 = new Layer<val_t>(layer1->out_size(), 1);
 
-  printf("Created a %dx%d layer\n", layer->in_size(), layer->out_size());
+  printf("Created a %dx%d layer\n", layer1->in_size(), layer1->out_size());
 
   // auto nxt = *inp * *inp;
   // printf("Addr   outside fxn: %d\n", &nxt);
@@ -56,34 +57,39 @@ int main(const int argc, char ** argv)
 
   printf("\nTraining...\n");
 
-  const int CYCLES = 60000;
-  const int UPDATES = 20; 
+  const int CYCLES = 6000;
+  const int UPDATES = 10; 
 
   for (int i=1; i<CYCLES; ++i)
   {
-    Matrix<val_t> l1 = layer->feed(inp);
+    Matrix<val_t> l1 = layer1->feed(inp);
+    Matrix<val_t> l2 = layer2->feed(l1);
 
     // expected.print();
     // l1.print();
 
-    Matrix<val_t> l1_error = expected - l1; // TODO: errors
+    Matrix<val_t> l2_error = expected - l2;
+    Matrix<val_t> l2_delta = l2_error * (layer2->actv_raw()->deriv(l2));
 
-    Matrix<val_t> l1_delta = l1_error * (layer->actv_raw()->deriv(l1));
-    layer->update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), l1_delta));
+    Matrix<val_t> l1_error = Matrix<val_t>::dot(l2_delta, Matrix<val_t>::transpose(layer2->syn_raw()));
+    Matrix<val_t> l1_delta = l1_error * (layer1->actv_raw()->deriv(l1));
+
+    layer2->update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(l1), l2_delta));
+    layer1->update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), l1_delta));
 
     if (i % (CYCLES/UPDATES) == 0)
     {
       printf("Input:\n");
       inp.print();
       printf("Output:\n");
-      l1.print();
+      l2.print();
       printf("Exepected:\n");
       expected.print();
       // l1_error.print();
       val_t average_error = 0;
-      for (int i=0; i<l1_error.h(); ++i)
-        average_error += abs(l1_error.get(i, 0));
-      average_error /= l1_error.h();
+      for (int i=0; i<l2_error.h(); ++i)
+        average_error += abs(l2_error.get(i, 0));
+      average_error /= l2_error.h();
       printf("\n%d%% progress - error = %.5f\n\n----------\n", i*100/CYCLES, average_error);
       //layer->syn_raw()->print();
     }
