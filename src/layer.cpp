@@ -106,11 +106,31 @@ public:
   Matrix<val_t> feed(const Matrix<val_t> &in) const
   {
     if (in.w() != _height)
-      throw std::domain_error("Invalid input matrix width!");
+      throw std::domain_error("Invalid input matrix width for network propogation!");
     //const Matrix<val_t> *p = Matrix::random(in->h(), _width);
     Matrix<val_t> p = Matrix<val_t>::dot(&in, _syn);
     (*_actv)(p);
     return p;
     //return nullptr;
+  }
+
+  /**
+   * Calculates and applies the weight changes asserted by backpropogation
+   * 
+   * @param inp Weights that were input to this layer during training
+   * @param out Weights that this layer returned
+   * @param err The error in the returned value `out`
+   * @return The modifications made
+   */
+  Matrix<val_t> backprop(const Matrix<val_t> &inp, const Matrix<val_t> &out, const Matrix<val_t> &err)
+  {
+    if (inp.h() != err.h())
+      throw std::domain_error("Invalid 'inp' matrix dimensions for back propogation!");
+    if (out.w() != err.w() || out.h() != err.h())
+      throw std::domain_error("Invalid 'out' or 'err' matrix dimensions for back propogation!");
+
+    Matrix<val_t> delta = err * (_actv->deriv(out));
+    update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), delta));
+    return delta;
   }
 };

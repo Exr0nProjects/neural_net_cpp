@@ -57,8 +57,8 @@ int main(const int argc, char ** argv)
 
   printf("\nTraining...\n");
 
-  const int CYCLES = 6000;
-  const int UPDATES = 10; 
+  const int CYCLES = 500000;
+  const int UPDATES = 50; 
 
   for (int i=1; i<CYCLES; ++i)
   {
@@ -68,14 +68,16 @@ int main(const int argc, char ** argv)
     // expected.print();
     // l1.print();
 
-    Matrix<val_t> l2_error = expected - l2;
-    Matrix<val_t> l2_delta = l2_error * (layer2->actv_raw()->deriv(l2));
+    Matrix<val_t> error = expected - l2;
+    // Matrix<val_t> l2_delta = l2_error * (layer2->actv_raw()->deriv(l2));
 
-    Matrix<val_t> l1_error = Matrix<val_t>::dot(l2_delta, Matrix<val_t>::transpose(layer2->syn_raw()));
-    Matrix<val_t> l1_delta = l1_error * (layer1->actv_raw()->deriv(l1));
+    // Matrix<val_t> l1_error = Matrix<val_t>::dot(l2_delta, Matrix<val_t>::transpose(layer2->syn_raw()));
+    // Matrix<val_t> l1_delta = l1_error * (layer1->actv_raw()->deriv(l1));
 
-    layer2->update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(l1), l2_delta));
-    layer1->update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), l1_delta));
+    // layer2->update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(l1), l2_delta));
+    Matrix<val_t> l2_delta = layer2->backprop(l1, l2, expected - l2);
+    // layer1->update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), l1_delta));
+    Matrix<val_t> l1_delta = layer1->backprop(inp, l2, Matrix<val_t>::dot(l2_delta, Matrix<val_t>::transpose(layer2->syn_raw())));
 
     if (i % (CYCLES/UPDATES) == 0)
     {
@@ -87,9 +89,9 @@ int main(const int argc, char ** argv)
       expected.print();
       // l1_error.print();
       val_t average_error = 0;
-      for (int i=0; i<l2_error.h(); ++i)
-        average_error += abs(l2_error.get(i, 0));
-      average_error /= l2_error.h();
+      for (int i=0; i<error.h(); ++i)
+        average_error += abs(error.get(i, 0));
+      average_error /= error.h();
       printf("\n%d%% progress - error = %.5f\n\n----------\n", i*100/CYCLES, average_error);
       //layer->syn_raw()->print();
     }
