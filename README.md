@@ -25,10 +25,10 @@ I plan to write this decently well, and from scratch, which means that I will ne
   - [x] Transpose utility `Matrix matrix.transpose() const -> copy`
   - [x] Dot multiplication utility `Matrix matrix.dot(const Matrix &other) const -> copy`
   - [x] Exponent utility `Matrix matrix.exp() const -> copy`
-- [ ] `Layer`: Abstract layer-wise math
+- [x] `Layer`: Abstract layer-wise math
   - [x] Primary constructor `Layer(const int size)`
   - [x] Implement `Matrix layer.feed(const Matrix &activations) -> activations`
-  - [ ] Implement `Matrix layer.backprop(const Matrix &inp, const Matrix &out, const Matrix &err) -> delta` which will update the weights of that layer using backprop
+  - [x] Implement `Matrix layer.backprop(const Matrix &inp, const Matrix &out, const Matrix &err) -> delta` which will update the weights of that layer using backprop
 - [ ] `Network`: Interface for the other code
   - [ ] Primary constructor `Network(const vector<int> &layer_sizes)`
   - [ ] Single step wrapper `const Matrix& network.feed(const Matrix &input) -> output`

@@ -77,7 +77,7 @@ int main(const int argc, char ** argv)
     // layer2->update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(l1), l2_delta));
     Matrix<val_t> l2_delta = layer2->backprop(l1, l2, expected - l2);
     // layer1->update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), l1_delta));
-    Matrix<val_t> l1_delta = layer1->backprop(inp, l2, Matrix<val_t>::dot(l2_delta, Matrix<val_t>::transpose(layer2->syn_raw())));
+    Matrix<val_t> l1_delta = layer1->backprop(inp, l1, Matrix<val_t>::dot(l2_delta, Matrix<val_t>::transpose(layer2->syn_raw())));
 
     if (i % (CYCLES/UPDATES) == 0)
     {
