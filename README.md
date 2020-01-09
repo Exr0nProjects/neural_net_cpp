@@ -28,8 +28,7 @@ I plan to write this decently well, and from scratch, which means that I will ne
 - [ ] `Layer`: Abstract layer-wise math
   - [x] Primary constructor `Layer(const int size)`
   - [x] Implement `Matrix layer.feed(const Matrix &activations) -> activations`
-  - [ ] Implement `Matrix layer.backprop(const Matrix &target) -> delta` which is to be used on the final layer of the network
-  - [ ] Implement `Matrix layer.backprop(const Layer &previous) -> delta` which is to be used for intermediate layers
+  - [ ] Implement `Matrix layer.backprop(const Matrix &inp, const Matrix &out, const Matrix &err) -> delta` which will update the weights of that layer using backprop
 - [ ] `Network`: Interface for the other code
   - [ ] Primary constructor `Network(const vector<int> &layer_sizes)`
   - [ ] Single step wrapper `const Matrix& network.feed(const Matrix &input) -> output`
@@ -48,8 +47,6 @@ Having a working CPU neural net in Python, I can finally complete the dream by c
 ### Other Notes
 
 1. Class vs instance method model: Class methods take pointers to their instances and return pointers to operated copies. Instance methods mutate themselves
-
-All this being said, I will start fully considering the tasks that each class must perform and what needs to be implementd. I will update this README soon...
 
 ### Next Steps
 
