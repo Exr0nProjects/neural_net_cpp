@@ -39,7 +39,7 @@ public:
   {
     dim_t prev = _input_dim;
     if (layers.size()) prev = layers[layers.size()-1].out_size();
-    layers.push_back(Layer(prev, out_dim));
+    layers.push_back(Layer<val_t>(prev, out_dim));
   }
 
   /**
@@ -52,10 +52,10 @@ public:
     snapshots.push_back(inp);
 
     for (const Layer<val_t> &layer : layers)
-      snapshots.push_back(layer.feed(snapshots[snapshots.length()-1]));
+      snapshots.push_back(layer.feed(snapshots[snapshots.size()-1]));
     snapshots.push_back(exp);
 
-    std::vector<val_t>::reverse_iterator rit = myvector.rbegin();
+    // std::vector<val_t>::reverse_iterator rit = snapshots.rbegin();
     // TODO: BACKPROP AAAAA
   }
-}
+};
