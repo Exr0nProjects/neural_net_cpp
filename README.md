@@ -10,6 +10,10 @@ Although the OOP framework has not yet been completed, this system is in a semi-
 
 This project was inspired by [iamtrask's toy neural net blogpost](https://iamtrask.github.io/2015/07/12/basic-python-network/). I played with it a few years back and learned alot from that, so I figured I would try to implement the same thing in C++ because it's speedy. Then, I would like to CUDA-fy it so I can run something on my gpu and feel cool (:. I'm aware that cognitivedemons has done this before both in [C++](https://cognitivedemons.wordpress.com/2017/07/06/a-neural-network-in-10-lines-of-c-code/) and with [CUDA](https://cognitivedemons.wordpress.com/2017/09/02/a-neural-network-in-10-lines-of-cuda-c-code/), but I would like to try it out for myself. This should be a fun, managable, and educational project and I'm glad you decided to check it out! Let's goo!
 
+### To run this project
+
+**To run this project, clone the repo and run `make`.**
+
 (I am also experimenting with a new git workflow for this project, so my commits will strive to make sense.)
 
 ## Plan
