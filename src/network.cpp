@@ -8,15 +8,17 @@
 
 /**
  * Network - a general model framework
- */ 
-class Network {
+ */
+class Network
+{
   typedef float val_t;
   typedef unsigned dim_t;
 
-  std::vector<Layer<val_t> > layers;
+  std::vector<Layer<val_t>> layers;
   unsigned _epoch_size;
   unsigned _status_log_count;
   dim_t _input_dim;
+
 public:
   /**
    * Default constructor
@@ -38,7 +40,8 @@ public:
   void addLayer(dim_t out_dim)
   {
     dim_t prev = _input_dim;
-    if (layers.size()) prev = layers[layers.size()-1].out_size();
+    if (layers.size())
+      prev = layers[layers.size() - 1].out_size();
     layers.push_back(Layer<val_t>(prev, out_dim));
   }
 
@@ -46,16 +49,43 @@ public:
    * Train the network
    * @param epoch_size How many iterations to train through
    */
-  void train(const Matrix<val_t> &inp, Matrix<val_t> exp)
+  void train(const Matrix<val_t> &inp, Matrix<val_t> exp, const unsigned epoch=500000)
   {
-    std::vector<Matrix<val_t> > snapshots;
-    snapshots.push_back(inp);
+    for (unsigned i=0; i<epoch; ++i)
+    {
+      std::vector<Matrix<val_t>> snapshots;
+      snapshots.push_back(inp);
 
-    for (const Layer<val_t> &layer : layers)
-      snapshots.push_back(layer.feed(snapshots[snapshots.size()-1]));
-    snapshots.push_back(exp);
+      // Feed forward
+      for (const Layer<val_t> &layer : layers)
+        snapshots.push_back(layer.feed(snapshots[snapshots.size() - 1]));
 
-    // std::vector<val_t>::reverse_iterator rit = snapshots.rbegin();
-    // TODO: BACKPROP AAAAA
+      Matrix<val_t> error = exp - snapshots[snapshots.size() - 1];
+      snapshots.push_back(exp);
+
+      if (i % (epoch / 100) == 0)
+      {
+        printf("Input:\n");
+        inp.print();
+        printf("Output:\n");
+        snapshots[snapshots.size()-2].print();
+        printf("Exepected:\n");
+        exp.print();
+
+        val_t average_error = 0;
+        for (int i = 0; i < error.h(); ++i)
+          average_error += abs(error.get(i, 0));
+        average_error /= error.h();
+        printf("\n%d%% progress - error = %.5f\n\n----------\n", i * 100 / epoch, average_error);
+      }
+
+      // Backprop
+      for (unsigned i = layers.size(); i >= 0; --i)
+      {
+        error = Matrix<val_t>::dot(
+            layers[i].backprop(snapshots[i], snapshots[i+1], error),
+            Matrix<val_t>::transpose(layers[i].syn_raw()));
+      }
+    }
   }
 };

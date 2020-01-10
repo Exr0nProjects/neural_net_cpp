@@ -80,7 +80,7 @@ public:
   void update_raw(const Matrix<val_t> &mod)
   {
     if (mod.w() != _width || mod.h() != _height)
-      throw std::domain_error("Invalid matrix dimensions!");
+      throw std::domain_error("Invalid matrix dimensions to update layer!");
     for (dim_t i=0; i<_height; ++i)
       for (dim_t j=0; j<_width; ++j)
       {
