@@ -42,7 +42,7 @@ int main(const int argc, char **argv)
   Matrix<val_t> inp = matrixIn<val_t>();
   Matrix<val_t> expected = matrixIn<val_t>();
 
-  inp.print();
+  // inp.print();
 
   // Layer<val_t> *layer1 = new Layer<val_t>(inp.w(), 3);
   // Layer<val_t> *layer2 = new Layer<val_t>(layer1->out_size(), 1);
@@ -55,8 +55,8 @@ int main(const int argc, char **argv)
   const int UPDATES = 50;
 
   Network net(3);
-  net.addLayer(3);
   net.addLayer(1);
+  // net.addLayer(1);
   net.train(inp, expected, 500000);
 
   return 0;

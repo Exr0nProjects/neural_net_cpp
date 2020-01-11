@@ -43,15 +43,16 @@ public:
     if (layers.size())
       prev = layers[layers.size() - 1].out_size();
     layers.push_back(Layer<val_t>(prev, out_dim));
+    printf("layers: %d\n", layers.size());
   }
 
   /**
    * Train the network
    * @param epoch_size How many iterations to train through
    */
-  void train(const Matrix<val_t> &inp, Matrix<val_t> exp, const unsigned epoch=500000)
+  void train(const Matrix<val_t> &inp, Matrix<val_t> exp, const unsigned epoch = 500000)
   {
-    for (unsigned i=0; i<epoch; ++i)
+    for (unsigned i = 0; i < epoch; ++i)
     {
       std::vector<Matrix<val_t>> snapshots;
       snapshots.push_back(inp);
@@ -61,29 +62,34 @@ public:
         snapshots.push_back(layer.feed(snapshots[snapshots.size() - 1]));
 
       Matrix<val_t> error = exp - snapshots[snapshots.size() - 1];
-      snapshots.push_back(exp);
 
       if (i % (epoch / 100) == 0)
       {
-        printf("Input:\n");
-        inp.print();
-        printf("Output:\n");
-        snapshots[snapshots.size()-2].print();
-        printf("Exepected:\n");
-        exp.print();
+        // printf("Input:\n");
+        // inp.print();
+        // printf("Output:\n");
+        // snapshots[snapshots.size()-2].print();
+        // printf("Exepected:\n");
+        // exp.print();
 
-        val_t average_error = 0;
-        for (int i = 0; i < error.h(); ++i)
-          average_error += abs(error.get(i, 0));
-        average_error /= error.h();
-        printf("\n%d%% progress - error = %.5f\n\n----------\n", i * 100 / epoch, average_error);
+        // val_t average_error = 0;
+        // for (int i = 0; i < error.h(); ++i)
+        //   average_error += abs(error.get(i, 0));
+        // average_error /= error.h();
+        // printf("\n%d%% progress - error = %.5f\n\n----------\n", i * 100 / epoch, average_error);
       }
 
       // Backprop
-      for (unsigned i = layers.size(); i >= 0; --i)
+      for (unsigned i = layers.size(); i > 0; --i)
       {
+        printf("inp:\n");
+        snapshots[i-1].print();
+        printf("out:\n");
+        snapshots[i].print();
+        printf("err:\n");
+        error.print();
         error = Matrix<val_t>::dot(
-            layers[i].backprop(snapshots[i], snapshots[i+1], error),
+            layers[i].backprop(snapshots[i-1], snapshots[i], error),
             Matrix<val_t>::transpose(layers[i].syn_raw()));
       }
     }

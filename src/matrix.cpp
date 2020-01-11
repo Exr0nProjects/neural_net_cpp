@@ -170,6 +170,7 @@ public:
         std::cout << " " << get(i, j);
       std::cout << std::endl;
     }
+    printf("\n");
   }
 
   /**

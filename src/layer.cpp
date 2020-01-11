@@ -130,6 +130,8 @@ public:
       throw std::domain_error("Invalid 'out' or 'err' matrix dimensions for back propogation!");
 
     Matrix<val_t> delta = err * (_actv->deriv(out));
+    printf("update - dot product:\n"); Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), delta).print();
+    printf("syn raw (%d):\n", syn_raw() == nullptr); //syn_raw()->print();
     update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), delta));
     return delta;
   }
