@@ -37,7 +37,6 @@ int main(const int argc, char **argv)
   if (argc >= 2)
     freopen(argv[2], "w+", stdout);
 
-  std::cout << "Please enter a matrix with dimensions at the top:" << std::endl;
   typedef float val_t;
   Matrix<val_t> inp = matrixIn<val_t>();
   Matrix<val_t> expected = matrixIn<val_t>();
@@ -54,8 +53,12 @@ int main(const int argc, char **argv)
   const int CYCLES = 500000;
   const int UPDATES = 50;
 
+
+  printf("Creating network...\n");
   Network net(3);
   net.addLayer(1);
+  return 0;
+  std::cout << std::endl;
   // net.addLayer(1);
   net.train(inp, expected, 500000);
 

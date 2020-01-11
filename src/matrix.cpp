@@ -19,15 +19,21 @@ template<class val_t> class Matrix
 public:
 
   /* static */
-  static Matrix* random(const dim_t height, const dim_t width, const unsigned seed=1)
+  static void random(Matrix &dest, const unsigned seed=1)
   {
     std::srand(seed);
-    Matrix *ret = new Matrix(height, width);
-    for (int i=0; i<height; ++i)
-      for (int j=0; j<width; ++j)
-      {
-        ret->set(i, j, (val_t) std::rand()/RAND_MAX*2-1); // value between 0 and 1
-      }
+    for (int i=0; i<dest.h(); ++i)
+      for (int j=0; j<dest.w(); ++j)
+        dest.set(i, j, (val_t)std::rand() / RAND_MAX * 2 - 1); // value between 0 and 1
+  }
+  static Matrix random(const dim_t height, const dim_t width, const unsigned seed = 1)
+  {
+    std::srand(seed);
+    Matrix ret(height, width);
+
+    printf("creating random matrix %d\n", &ret);
+    Matrix<val_t>::random(ret, seed);
+    printf("random matrix initialized: %d\n", &ret);
     return ret;
   }
 
@@ -100,7 +106,9 @@ public:
 
   /* constructors/destructors */
   Matrix(){
-    _data = nullptr;
+    printf("Empty Matrix constructor called! %d\n", this);
+    _data = new val_t*;
+    *_data = new val_t;
     _height = 0;
     _width = 0;
     _id = rand();
@@ -113,6 +121,7 @@ public:
    */
   Matrix(const dim_t height, const dim_t width) : _height(height), _width(width)
   {
+    printf("Empty matrix init: %d\n", this);
     _data = new val_t*[_height];
     for (dim_t i=0; i<_height; ++i)
       _data[i] = new val_t[_width];
@@ -142,6 +151,7 @@ public:
    */
   Matrix(const Matrix &src): Matrix(src.height(), src.width())
   {
+    printf("\n\n\n\n\n\n\n\n\nsuck.\n");
     for (dim_t i=0; i<_height; ++i)
       for (dim_t j=0; j<_width; ++j)
         set(i, j, src.get(i, j));
@@ -149,11 +159,17 @@ public:
 
   ~Matrix()
   {
+    printf("~ deleting Matrix %d\n", this);
+    if (_data == nullptr) return;
     for (dim_t i=0; i<_height; ++i)
     {
-      delete [] _data[i];
+      if (_data[i] != nullptr)
+      {
+        delete [] _data[i];
+      }
     }
     delete [] _data;
+    printf("~ finished deleting.\n");
   }
 
   /* methods */
@@ -163,6 +179,7 @@ public:
    */
   void print(const unsigned precision = 3) const
   {
+    printf("printing Matrix %d\n", this);
     std::cout << std::setprecision(precision);
     for (int i = 0; i < _height; ++i)
     {

@@ -42,8 +42,14 @@ public:
     dim_t prev = _input_dim;
     if (layers.size())
       prev = layers[layers.size() - 1].out_size();
-    layers.push_back(Layer<val_t>(prev, out_dim));
-    printf("layers: %d\n", layers.size());
+    printf("N pre: %d->%d\n", prev, out_dim);
+    Layer<val_t> nxt(prev, out_dim);
+    printf("N post\n");
+    layers.push_back(nxt);
+    printf("N post2\n");
+
+    printf("N layers: %d\n", layers.size());
+    printf("N nxt: %d\n", &nxt);
   }
 
   /**

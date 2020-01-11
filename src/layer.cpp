@@ -14,7 +14,7 @@
 template<class val_t> class Layer
 {
   typedef unsigned dim_t;
-  Matrix<val_t> *_syn;
+  Matrix<val_t> _syn;
   Activation<val_t> *_actv;
   dim_t _width, _height;
 public:
@@ -23,7 +23,7 @@ public:
    */
   Layer()
   {
-    _syn = nullptr;
+    _syn = Matrix<val_t>(1, 1);
     _actv = new Activation<val_t>("sigmoid");
     _width = 0;
     _height = 0;
@@ -35,11 +35,17 @@ public:
    */
   Layer(const dim_t in_size, const dim_t out_size=0, const unsigned seed=1)
   {
+    printf("L basic layer constructor called: %d-%d\n", in_size, out_size);
     _height = in_size;
     _width = out_size;
     if (_width == 0) _width = _height;
-    _syn = Matrix<val_t>::random(_height, _width, seed);
+    Matrix<val_t>::random(_syn, seed); // ! Some weird shenanigans were causing the return value of Matrix<val_t>::random to not get copied... so I had to do this instead
+    printf("Syn dimensions: %dx%d\n", _syn.h(), _syn.w());
+    _syn.print();
+    _actv = new Activation<val_t>("sigmoid");
+    printf("L syn: %d\n", &_syn); // DEBUG, TODO: REMOVE
   }
+
   /**
    * "Activation" constructor
    * @param in_size Dimension of input to this layer
@@ -57,13 +63,13 @@ public:
    */
   Layer(const Layer &src): Layer(src.in_size(), src.out_size())
   {
-    _syn = new Matrix<val_t>(*(src.syn_raw()));
+    _syn = src.syn_raw();
     _actv = new Activation<val_t>(*(src.actv_raw()));
   }
 
   ~Layer()
   {
-    delete _syn;
+    delete _actv;
   }
   
   /* methods */
@@ -73,7 +79,7 @@ public:
   // getters
   dim_t in_size() const {return _height;}
   dim_t out_size() const {return _width;}
-  const Matrix<val_t> *const syn_raw() const {return _syn;} 
+  const Matrix<val_t> &syn_raw() const {return _syn;} 
   const Activation<val_t> *const actv_raw() const {return _actv;}
 
   // setters
@@ -84,7 +90,7 @@ public:
     for (dim_t i=0; i<_height; ++i)
       for (dim_t j=0; j<_width; ++j)
       {
-        _syn->set(i, j, _syn->get(i, j)+mod.get(i, j));
+        _syn.set(i, j, _syn.get(i, j)+mod.get(i, j));
       }
   }
 
@@ -108,7 +114,7 @@ public:
     if (in.w() != _height)
       throw std::domain_error("Invalid input matrix width for network propogation!");
     //const Matrix<val_t> *p = Matrix::random(in->h(), _width);
-    Matrix<val_t> p = Matrix<val_t>::dot(&in, _syn);
+    Matrix<val_t> p = Matrix<val_t>::dot(in, _syn);
     (*_actv)(p);
     return p;
     //return nullptr;
@@ -131,7 +137,7 @@ public:
 
     Matrix<val_t> delta = err * (_actv->deriv(out));
     printf("update - dot product:\n"); Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), delta).print();
-    printf("syn raw (%d):\n", syn_raw() == nullptr); //syn_raw()->print();
+    //syn_raw().print();
     update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), delta));
     return delta;
   }
