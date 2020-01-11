@@ -11,12 +11,14 @@
 /**
  * Layer : Abstracted math
  */
-template<class val_t> class Layer
+template <class val_t>
+class Layer
 {
   typedef unsigned dim_t;
   Matrix<val_t> _syn;
   Activation<val_t> *_actv;
   dim_t _width, _height;
+
 public:
   /**
    * Default constructor
@@ -33,12 +35,13 @@ public:
    * @param in_size Dimension of input to this layer
    * @param out_size Dimension of expected output (defaults to in_size)
    */
-  Layer(const dim_t in_size, const dim_t out_size=0, const unsigned seed=1)
+  Layer(const dim_t in_size, const dim_t out_size = 0, const unsigned seed = 1)
   {
     printf("L basic layer constructor called: %d-%d\n", in_size, out_size);
     _height = in_size;
     _width = out_size;
-    if (_width == 0) _width = _height;
+    if (_width == 0)
+      _width = _height;
     Matrix<val_t>::random(_syn, seed); // ! Some weird shenanigans were causing the return value of Matrix<val_t>::random to not get copied... so I had to do this instead
     printf("Syn dimensions: %dx%d\n", _syn.h(), _syn.w());
     _syn.print();
@@ -52,7 +55,7 @@ public:
    * @param out_size Dimension of expected output
    * @param activation Activation function to use
    */
-  Layer(const dim_t in_size, const dim_t out_size, const std::string activation, const unsigned seed=1): Layer(in_size, out_size, seed)
+  Layer(const dim_t in_size, const dim_t out_size, const std::string activation, const unsigned seed = 1) : Layer(in_size, out_size, seed)
   {
     _actv = new Activation<val_t>(activation);
   }
@@ -61,9 +64,11 @@ public:
    * Copy constructor
    * @param src The Layer to copy from
    */
-  Layer(const Layer &src): Layer(src.in_size(), src.out_size())
+  Layer(const Layer &src) : _syn(src.syn_raw())
   {
-    _syn = src.syn_raw();
+    _width = src.out_size();
+    _height = src.in_size();
+    printf("\n\n\nlayer suck...\n\n\n");
     _actv = new Activation<val_t>(*(src.actv_raw()));
   }
 
@@ -71,26 +76,32 @@ public:
   {
     delete _actv;
   }
-  
+
   /* methods */
+  Layer &operator=(const Layer &o)
+  {
+    this = new Layer(o);
+    return *this;
+  }
+
   // template<typename... Args> // https://stackoverflow.com/a/16338804
   // void forEach(std::function<void()> const& lambda, Args... args)
 
   // getters
-  dim_t in_size() const {return _height;}
-  dim_t out_size() const {return _width;}
-  const Matrix<val_t> &syn_raw() const {return _syn;} 
-  const Activation<val_t> *const actv_raw() const {return _actv;}
+  dim_t in_size() const { return _height; }
+  dim_t out_size() const { return _width; }
+  const Matrix<val_t> &syn_raw() const { return _syn; }
+  const Activation<val_t> *const actv_raw() const { return _actv; }
 
   // setters
   void update_raw(const Matrix<val_t> &mod)
   {
     if (mod.w() != _width || mod.h() != _height)
       throw std::domain_error("Invalid matrix dimensions to update layer!");
-    for (dim_t i=0; i<_height; ++i)
-      for (dim_t j=0; j<_width; ++j)
+    for (dim_t i = 0; i < _height; ++i)
+      for (dim_t j = 0; j < _width; ++j)
       {
-        _syn.set(i, j, _syn.get(i, j)+mod.get(i, j));
+        _syn.set(i, j, _syn.get(i, j) + mod.get(i, j));
       }
   }
 
@@ -136,7 +147,8 @@ public:
       throw std::domain_error("Invalid 'out' or 'err' matrix dimensions for back propogation!");
 
     Matrix<val_t> delta = err * (_actv->deriv(out));
-    printf("update - dot product:\n"); Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), delta).print();
+    printf("update - dot product:\n");
+    Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), delta).print();
     //syn_raw().print();
     update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), delta));
     return delta;

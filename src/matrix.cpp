@@ -173,6 +173,12 @@ public:
   }
 
   /* methods */
+  // Matrix &operator=(const Matrix &o)
+  // { // TODO: rewrite for efficiency? https://docs.microsoft.com/en-us/archive/msdn-magazine/2005/september/c-at-work-copy-constructors-assignment-operators-and-more
+  //   this = new Matrix(o);
+  //   return *this;
+  // }
+
   /**
    * Prints matrix to stdout
    * @param precision Sets precision of output, number of sigfigs
