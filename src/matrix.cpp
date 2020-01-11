@@ -30,10 +30,7 @@ public:
   {
     std::srand(seed);
     Matrix ret(height, width);
-
-    printf("creating random matrix %d\n", &ret);
     Matrix<val_t>::random(ret, seed);
-    printf("random matrix initialized: %d\n", &ret);
     return ret;
   }
 
@@ -106,7 +103,6 @@ public:
 
   /* constructors/destructors */
   Matrix(){
-    printf("Empty Matrix constructor called! %d\n", this);
     _data = new val_t*;
     *_data = new val_t;
     _height = 0;
@@ -121,7 +117,6 @@ public:
    */
   Matrix(const dim_t height, const dim_t width) : _height(height), _width(width)
   {
-    printf("Empty matrix init: %d\n", this);
     _data = new val_t*[_height];
     for (dim_t i=0; i<_height; ++i)
       _data[i] = new val_t[_width];
@@ -151,7 +146,6 @@ public:
    */
   Matrix(const Matrix &src): Matrix(src.height(), src.width())
   {
-    printf("\n\n\n\n\n\n\n\n\nsuck.\n");
     for (dim_t i=0; i<_height; ++i)
       for (dim_t j=0; j<_width; ++j)
         set(i, j, src.get(i, j));
@@ -159,7 +153,6 @@ public:
 
   ~Matrix()
   {
-    printf("~ deleting Matrix %d\n", this);
     if (_data == nullptr) return;
     for (dim_t i=0; i<_height; ++i)
     {
@@ -169,7 +162,6 @@ public:
       }
     }
     delete [] _data;
-    printf("~ finished deleting.\n");
   }
 
   /* methods */
@@ -185,7 +177,6 @@ public:
    */
   void print(const unsigned precision = 3) const
   {
-    printf("printing Matrix %d\n", this);
     std::cout << std::setprecision(precision);
     for (int i = 0; i < _height; ++i)
     {

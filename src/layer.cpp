@@ -37,16 +37,13 @@ public:
    */
   Layer(const dim_t in_size, const dim_t out_size = 0, const unsigned seed = 1)
   {
-    printf("L basic layer constructor called: %d-%d\n", in_size, out_size);
     _height = in_size;
     _width = out_size;
     if (_width == 0)
       _width = _height;
     Matrix<val_t>::random(_syn, seed); // ! Some weird shenanigans were causing the return value of Matrix<val_t>::random to not get copied... so I had to do this instead
-    printf("Syn dimensions: %dx%d\n", _syn.h(), _syn.w());
     _syn.print();
     _actv = new Activation<val_t>("sigmoid");
-    printf("L syn: %d\n", &_syn); // DEBUG, TODO: REMOVE
   }
 
   /**
@@ -68,7 +65,6 @@ public:
   {
     _width = src.out_size();
     _height = src.in_size();
-    printf("\n\n\nlayer suck...\n\n\n");
     _actv = new Activation<val_t>(*(src.actv_raw()));
   }
 
