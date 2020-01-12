@@ -120,11 +120,11 @@ public:
   {
     if (in.w() != _height)
       throw std::domain_error("Invalid input matrix width for network propogation!");
-    //const Matrix<val_t> *p = Matrix::random(in->h(), _width);
+    printf("pre2\n");
     Matrix<val_t> p = Matrix<val_t>::dot(in, _syn);
+    printf("post\n");
     (*_actv)(p);
     return p;
-    //return nullptr;
   }
 
   /**

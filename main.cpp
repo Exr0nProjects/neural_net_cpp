@@ -56,10 +56,8 @@ int main(const int argc, char **argv)
 
   printf("Creating network...\n");
   Network net(3);
+  // net.addLayer(3);
   net.addLayer(1);
-  return 0;
-  std::cout << std::endl;
-  // net.addLayer(1);
   net.train(inp, expected, 500000);
 
   return 0;

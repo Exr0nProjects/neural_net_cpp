@@ -59,7 +59,10 @@ public:
 
       // Feed forward
       for (const Layer<val_t> &layer : layers)
+      {
+        printf("pre\n");
         snapshots.push_back(layer.feed(snapshots[snapshots.size() - 1]));
+      }
 
       Matrix<val_t> error = exp - snapshots[snapshots.size() - 1];
 
@@ -88,9 +91,11 @@ public:
         snapshots[i].print();
         printf("err:\n");
         error.print();
+
         error = Matrix<val_t>::dot(
             layers[i].backprop(snapshots[i-1], snapshots[i], error),
-            Matrix<val_t>::transpose(layers[i].syn_raw()));
+            Matrix<val_t>::transpose(layers[i].syn_raw())
+          );
       }
     }
   }
