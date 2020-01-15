@@ -16,6 +16,16 @@ template<class val_t> class Matrix
   dim_t _height;
   dim_t _width;
   int _id;
+
+  static val_t **allocDims(dim_t h, dim_t w)
+  {
+    val_t ** ret = new val_t *[h];
+    for (dim_t i=0; i<h; ++i)
+    {
+      ret[i] = new val_t[w];
+    }
+    return ret;
+  }
 public:
 
   /* static */
@@ -31,6 +41,8 @@ public:
     std::srand(seed);
     Matrix ret(height, width);
     Matrix<val_t>::random(ret, seed);
+    printf("Matrix::random created matrix %x\n", &ret);
+    ret.print();
     return ret;
   }
 
@@ -117,9 +129,14 @@ public:
    */
   Matrix(const dim_t height, const dim_t width) : _height(height), _width(width)
   {
-    _data = new val_t*[_height];
+    _data = allocDims(_height, _width);
     for (dim_t i=0; i<_height; ++i)
-      _data[i] = new val_t[_width];
+    {
+      for (dim_t j=0; j<_width; ++j)
+      {
+        _data[i][j] = 0;
+      }
+    }
   }
 
   /**
@@ -146,6 +163,7 @@ public:
    */
   Matrix(const Matrix &src): Matrix(src.height(), src.width())
   {
+    printf("ctor: copying matrix %x->%x\n", &src, this);
     for (dim_t i=0; i<_height; ++i)
       for (dim_t j=0; j<_width; ++j)
         set(i, j, src.get(i, j));
@@ -165,11 +183,21 @@ public:
   }
 
   /* methods */
-  // Matrix &operator=(const Matrix &o)
-  // { // TODO: rewrite for efficiency? https://docs.microsoft.com/en-us/archive/msdn-magazine/2005/september/c-at-work-copy-constructors-assignment-operators-and-more
-  //   this = new Matrix(o);
-  //   return *this;
-  // }
+  Matrix &operator=(const Matrix &o)
+  { // TODO: rewrite for efficiency? https://docs.microsoft.com/en-us/archive/msdn-magazine/2005/september/c-at-work-copy-constructors-assignment-operators-and-more
+    if (this == &o)
+      return *this; // otherwise "heap will get corrupted instantly" pg 10 of (http://www.umich.edu/~eecs381/lecture/Objectdynmemory.pdf)
+    this->~Matrix();
+    _data = allocDims(o.h(), o.w());
+    for (dim_t i=0; i<o.h(); ++i)
+    {
+      for (dim_t j=0; j<o.h(); ++j)
+      {
+        _data[i][j] = o.get(i, j);
+      }
+    }
+    return *this;
+  }
 
   /**
    * Prints matrix to stdout
@@ -177,6 +205,7 @@ public:
    */
   void print(const unsigned precision = 3) const
   {
+    printf("Printing Matrix %x\n", this);
     std::cout << std::setprecision(precision);
     for (int i = 0; i < _height; ++i)
     {

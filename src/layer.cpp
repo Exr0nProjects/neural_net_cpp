@@ -25,6 +25,7 @@ public:
    */
   Layer()
   {
+    printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\ncreating empty layer %x\n", this);
     _syn = Matrix<val_t>(1, 1);
     _actv = new Activation<val_t>("sigmoid");
     _width = 0;
@@ -35,14 +36,12 @@ public:
    * @param in_size Dimension of input to this layer
    * @param out_size Dimension of expected output (defaults to in_size)
    */
-  Layer(const dim_t in_size, const dim_t out_size = 0, const unsigned seed = 1)
+  Layer(const dim_t in_size, const dim_t out_size, const unsigned seed = 1): _height(in_size), _width(out_size), _syn(in_size, out_size)
   {
-    _height = in_size;
-    _width = out_size;
-    if (_width == 0)
-      _width = _height;
-    Matrix<val_t>::random(_syn, seed); // ! Some weird shenanigans were causing the return value of Matrix<val_t>::random to not get copied... so I had to do this instead
-    _syn.print();
+    printf("creating new layer %x\n", this);\
+    
+    _syn = Matrix<val_t>::random(in_size, out_size, seed); // ! Some weird shenanigans were causing the return value of Matrix<val_t>::random to not get copied... so I had to do this instead
+    // _syn.print(); // TODO: The value from Matrix::random isnt copied here, which is causing issues...
     _actv = new Activation<val_t>("sigmoid");
   }
 
@@ -63,9 +62,12 @@ public:
    */
   Layer(const Layer &src) : _syn(src.syn_raw())
   {
+    printf("copy constructor called! copied %x (%dx%d) to %x (%dx%d)\n", &src, src.in_size(), src.out_size(), this, src.in_size(), src.out_size());
     _width = src.out_size();
     _height = src.in_size();
     _actv = new Activation<val_t>(*(src.actv_raw()));
+
+    _syn.print();
   }
 
   ~Layer()
@@ -76,7 +78,9 @@ public:
   /* methods */
   Layer &operator=(const Layer &o)
   {
+    delete this;
     this = new Layer(o);
+    printf("copy assignment called! new layer at %x\n", this); // TODO: DEBUG: Remove
     return *this;
   }
 
@@ -121,6 +125,9 @@ public:
     if (in.w() != _height)
       throw std::domain_error("Invalid input matrix width for network propogation!");
     printf("pre2\n");
+    in.print();
+    printf("_syn of Layer %x: %dx%d\n", this, _syn.h(), _syn.w());
+    _syn.print();
     Matrix<val_t> p = Matrix<val_t>::dot(in, _syn);
     printf("post\n");
     (*_actv)(p);
