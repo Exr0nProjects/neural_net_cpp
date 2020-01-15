@@ -36,12 +36,11 @@ public:
    * @param in_size Dimension of input to this layer
    * @param out_size Dimension of expected output (defaults to in_size)
    */
-  Layer(const dim_t in_size, const dim_t out_size, const unsigned seed = 1): _height(in_size), _width(out_size), _syn(in_size, out_size)
+  Layer(const dim_t in_size, const dim_t out_size, const unsigned seed = 1) : _height(in_size), _width(out_size), _syn(in_size, out_size)
   {
-    printf("creating new layer %x\n", this);\
-    
+    printf("creating new layer %x\n", this);
+
     _syn = Matrix<val_t>::random(in_size, out_size, seed); // ! Some weird shenanigans were causing the return value of Matrix<val_t>::random to not get copied... so I had to do this instead
-    // _syn.print(); // TODO: The value from Matrix::random isnt copied here, which is causing issues...
     _actv = new Activation<val_t>("sigmoid");
   }
 
@@ -80,7 +79,6 @@ public:
   {
     delete this;
     this = new Layer(o);
-    printf("copy assignment called! new layer at %x\n", this); // TODO: DEBUG: Remove
     return *this;
   }
 
@@ -124,12 +122,8 @@ public:
   {
     if (in.w() != _height)
       throw std::domain_error("Invalid input matrix width for network propogation!");
-    printf("pre2\n");
-    in.print();
-    printf("_syn of Layer %x: %dx%d\n", this, _syn.h(), _syn.w());
-    _syn.print();
+
     Matrix<val_t> p = Matrix<val_t>::dot(in, _syn);
-    printf("post\n");
     (*_actv)(p);
     return p;
   }
@@ -152,7 +146,7 @@ public:
     Matrix<val_t> delta = err * (_actv->deriv(out));
     printf("update - dot product:\n");
     Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), delta).print();
-    //syn_raw().print();
+    syn_raw().print(); // TODO: this is empty wtf
     update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), delta));
     return delta;
   }

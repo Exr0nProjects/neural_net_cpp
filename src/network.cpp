@@ -60,7 +60,6 @@ public:
       // Feed forward
       for (const Layer<val_t> &layer : layers)
       {
-        printf("pre\n");
         snapshots.push_back(layer.feed(snapshots[snapshots.size() - 1]));
       }
 
