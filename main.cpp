@@ -41,15 +41,6 @@ int main(const int argc, char **argv)
   Matrix<val_t> inp = matrixIn<val_t>();
   Matrix<val_t> expected = matrixIn<val_t>();
 
-  // inp.print();
-
-  // Layer<val_t> *layer1 = new Layer<val_t>(inp.w(), 3);
-  // Layer<val_t> *layer2 = new Layer<val_t>(layer1->out_size(), 1);
-
-  // printf("Created a %dx%d layer\n", layer1->in_size(), layer1->out_size());
-
-  // printf("\nTraining...\n");
-
   const int CYCLES = 500000;
   const int UPDATES = 50;
 

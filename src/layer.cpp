@@ -80,6 +80,7 @@ public:
     return *this;
   }
 
+  // TODO
   // template<typename... Args> // https://stackoverflow.com/a/16338804
   // void forEach(std::function<void()> const& lambda, Args... args)
 
@@ -110,11 +111,10 @@ public:
   {
     if (in->w() != _height)
       throw std::domain_error("Invalid input matrix width!");
-    //const Matrix<val_t> *p = Matrix::random(in->h(), _width);
+
     Matrix<val_t> p = Matrix<val_t>::dot(in, _syn);
     p = (*_actv)(p);
     return p;
-    //return nullptr;
   }
   Matrix<val_t> feed(const Matrix<val_t> &in) const
   {

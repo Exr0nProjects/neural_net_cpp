@@ -29,37 +29,11 @@ template<class val_t> class Matrix
 public:
 
   /* static */
-  // TODO: remove
-  // static void random(Matrix &dest, const unsigned seed=1)
-  // {
-  //   std::srand(seed);
-  //   for (int i=0; i<dest.h(); ++i)
-  //     for (int j=0; j<dest.w(); ++j)
-  //       dest.set(i, j, (val_t)std::rand() / RAND_MAX * 2 - 1); // value between 0 and 1
-  // }
-  // static Matrix random(const dim_t height, const dim_t width, const unsigned seed = 1)
-  // {
-  //   std::srand(seed);
-  //   Matrix ret(height, width);
-  //   Matrix<val_t>::random(ret, seed);
-  //   printf("Random matrix created (%x):\n", &ret);
-  //   ret.print();
-  //   return ret;
-  // }
-
   /**
-   * Return a pointer to a new matrix that is the transposition of this matrix
+   * Return a new matrix that is the transposition of this matrix
    * @param src The source matrix (unmodified)
-   * @return Matrix* The transposed matrix
+   * @return The transposed matrix
    */
-  static Matrix transpose(const Matrix *const src)
-  {
-    Matrix ret(src->w(), src->h());
-    for (dim_t h = 0; h < src->h(); ++h)
-      for (dim_t w = 0; w < src->w(); ++w)
-        ret.set(w, h, src->get(h, w));
-    return ret;
-  }
   static Matrix transpose(const Matrix &src)
   {
     Matrix ret(src.w(), src.h());
@@ -70,30 +44,11 @@ public:
   }
 
   /**
-   * Return a pointer to a new matrix that is this matrix multiplied by another
+   * Return a new matrix that is this matrix multiplied by another
    * @param lhs Matrix to be multiplied on
    * @param rhs Matrix to be multiplied by
-   * @return Matrix* The product matrix
+   * @return The product matrix
    */
-  static Matrix dot(const Matrix *const lhs, const Matrix *const rhs)
-  {
-    if (lhs->w() != rhs->h())
-      throw std::domain_error("Invalid matrix dimensions for static dot multiplication!");
-    Matrix ret(lhs->h(), rhs->w());
-    for (dim_t r = 0; r < lhs->h(); ++r)
-    {
-      for (dim_t c = 0; c < rhs->w(); ++c)
-      {
-        val_t sum = 0;
-        for (dim_t i = 0; i < lhs->w(); ++i)
-        {
-          sum += lhs->get(r, i) * rhs->get(i, c);
-        }
-        ret.set(r, c, sum);
-      }
-    }
-    return ret;
-  }
   static Matrix dot(const Matrix &lhs, const Matrix &rhs)
   {
     if (lhs.w() != rhs.h())
@@ -255,6 +210,7 @@ public:
     _data[y][x] = dat;
   }
 
+  // TODO: check that this works
   void forEach(std::function<void(dim_t,dim_t,Matrix<val_t>*const,Matrix<val_t>*const)> const& lambda)
   {
     for (dim_t i=0; i<h(); ++i)
@@ -273,24 +229,17 @@ public:
     for (dim_t i=0; i<h(); ++i)
       for (dim_t j=0; j<w(); ++j)
         ret.set(i, j, get(i, j)-o.get(i, j));
-    // printf("Address inside fxn: %d\n", &ret);
     return ret;
-    // const auto op = [](const dim_t i, const dim_t j, Matrix<val_t> *l, const Matrix<val_t> *r){l->set(i, j, r->get(i, j));};
-    // return Matrix(h(), w()).forEach(op);
   }
   Matrix<val_t> operator*(const Matrix<val_t> &o) const
   {
-    // printf("got to operator*\n");
     if (w() != o.w() || h() != o.h())
       throw std::domain_error("Invalid matrix dimesions for element-wise multiply!");
     Matrix ret(h(), w());
     for (dim_t i=0; i<h(); ++i)
       for (dim_t j=0; j<w(); ++j)
         ret.set(i, j, get(i, j)*o.get(i, j));
-    // printf("Address inside fxn: %d\n", &ret);
     return ret;
-    // const auto op = [](const dim_t i, const dim_t j, Matrix<val_t> *l, const Matrix<val_t> *r){l->set(i, j, r->get(i, j));};
-    // return Matrix(h(), w()).forEach(op);
   }
 
   /**
