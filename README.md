@@ -33,12 +33,10 @@ I plan to write this decently well, and from scratch, which means that I will ne
   - [x] Primary constructor `Layer(const int size)`
   - [x] Implement `Matrix layer.feed(const Matrix &activations) -> activations`
   - [x] Implement `Matrix layer.backprop(const Matrix &inp, const Matrix &out, const Matrix &err) -> delta` which will update the weights of that layer using backprop
-- [ ] `Network`: Interface for the other code
-  - [ ] Primary constructor `Network(const vector<int> &layer_sizes)`
-  - [ ] Single step wrapper `const Matrix& network.feed(const Matrix &input) -> output`
-  - [ ] Backprop wrapper `void network.backprop(const Matrix &output, const Matrix &expected)`
-  - [ ] Feed wrapper (combines single step and backprop) `void network.feed(const Matrix &input, const Matrix &expected)`
-  - [ ] Train wrapper (loops feed wrapper) `void network.train(const Matrix &input, const Matrix &expected, const int epochs)`
+- [x] `Network`: Interface for the other code
+  - [x] Primary constructor `Network(const vector<int> &layer_sizes)`
+  - [x] Single step wrapper `const Matrix& network.feed(const Matrix &input) -> output`
+  - [x] Train wrapper (feed with backprop) `void network.train(const Matrix &input, const Matrix &expected, const int epochs)`
 
 ### Stage 2 - Basic Functionality
 
