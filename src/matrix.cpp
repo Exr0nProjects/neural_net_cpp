@@ -41,7 +41,6 @@ public:
     std::srand(seed);
     Matrix ret(height, width);
     Matrix<val_t>::random(ret, seed);
-    printf("Matrix::random created matrix %x\n", &ret);
     ret.print();
     return ret;
   }
@@ -163,7 +162,7 @@ public:
    */
   Matrix(const Matrix &src): Matrix(src.height(), src.width())
   {
-    printf("ctor: copying matrix %x->%x\n", &src, this);
+    // printf("ctor: copying matrix %x->%x\n", &src, this);
     for (dim_t i=0; i<_height; ++i)
       for (dim_t j=0; j<_width; ++j)
         set(i, j, src.get(i, j));
@@ -206,12 +205,12 @@ public:
   void print(const unsigned precision = 3) const
   {
     printf("Printing Matrix %x\n", this);
-    std::cout << std::setprecision(precision);
+
     for (int i = 0; i < _height; ++i)
     {
       for (int j = 0; j < _width; ++j)
-        std::cout << " " << get(i, j);
-      std::cout << std::endl;
+        printf(" %+1.3f", get(i, j));
+      printf("\n");
     }
     printf("\n");
   }
