@@ -47,6 +47,18 @@ public:
   }
 
   /**
+   * Feed an input vector through the network to check the result
+   */
+  Matrix<val_t> feed(Matrix<val_t> inp)
+  {
+    for (const Layer<val_t> &layer : layers)
+    {
+      inp = layer.feed(inp);
+    }
+    return inp;
+  }
+
+  /**
    * Train the network
    * @param epoch_size How many iterations to train through
    */
@@ -67,34 +79,29 @@ public:
 
       if (i % (epoch / 100) == 0)
       {
-        // printf("Input:\n");
-        // inp.print();
-        // printf("Output:\n");
-        // snapshots[snapshots.size()-2].print();
-        // printf("Exepected:\n");
-        // exp.print();
+        printf("Input:\n");
+        inp.print();
+        printf("Output:\n");
+        snapshots[snapshots.size()-1].print();
+        printf("Exepected:\n");
+        exp.print();
 
-        // val_t average_error = 0;
-        // for (int i = 0; i < error.h(); ++i)
-        //   average_error += abs(error.get(i, 0));
-        // average_error /= error.h();
-        // printf("\n%d%% progress - error = %.5f\n\n----------\n", i * 100 / epoch, average_error);
+        val_t average_error = 0;
+        for (int i = 0; i < error.h(); ++i)
+          average_error += abs(error.get(i, 0));
+        average_error /= error.h();
+        printf("\n%d%% progress - error = %.5f\n\n--------------------\n", i * 100 / epoch, average_error);
       }
 
       // Backprop
-      for (unsigned i = layers.size(); i > 0; --i)
+      for (int i = layers.size()-1; i >= 0; --i)
       {
-        printf("inp:\n");
-        snapshots[i-1].print();
-        printf("out:\n");
-        snapshots[i].print();
-        printf("err:\n");
-        error.print();
+        Matrix<val_t> delta = layers[i].backprop(snapshots[i], snapshots[i+1], error);
+        Matrix<val_t> synT = Matrix<val_t>::transpose(layers[i].syn_raw());
 
         error = Matrix<val_t>::dot(
-            layers[i].backprop(snapshots[i-1], snapshots[i], error),
-            Matrix<val_t>::transpose(layers[i].syn_raw())
-          );
+          delta, synT
+        );
       }
     }
   }

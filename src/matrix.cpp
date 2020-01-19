@@ -29,21 +29,23 @@ template<class val_t> class Matrix
 public:
 
   /* static */
-  static void random(Matrix &dest, const unsigned seed=1)
-  {
-    std::srand(seed);
-    for (int i=0; i<dest.h(); ++i)
-      for (int j=0; j<dest.w(); ++j)
-        dest.set(i, j, (val_t)std::rand() / RAND_MAX * 2 - 1); // value between 0 and 1
-  }
-  static Matrix random(const dim_t height, const dim_t width, const unsigned seed = 1)
-  {
-    std::srand(seed);
-    Matrix ret(height, width);
-    Matrix<val_t>::random(ret, seed);
-    ret.print();
-    return ret;
-  }
+  // TODO: remove
+  // static void random(Matrix &dest, const unsigned seed=1)
+  // {
+  //   std::srand(seed);
+  //   for (int i=0; i<dest.h(); ++i)
+  //     for (int j=0; j<dest.w(); ++j)
+  //       dest.set(i, j, (val_t)std::rand() / RAND_MAX * 2 - 1); // value between 0 and 1
+  // }
+  // static Matrix random(const dim_t height, const dim_t width, const unsigned seed = 1)
+  // {
+  //   std::srand(seed);
+  //   Matrix ret(height, width);
+  //   Matrix<val_t>::random(ret, seed);
+  //   printf("Random matrix created (%x):\n", &ret);
+  //   ret.print();
+  //   return ret;
+  // }
 
   /**
    * Return a pointer to a new matrix that is the transposition of this matrix
@@ -126,14 +128,18 @@ public:
    * @param height Height of the new Matrix
    * @param width Width of the new Matrix
    */
-  Matrix(const dim_t height, const dim_t width) : _height(height), _width(width)
+  Matrix(const dim_t height, const dim_t width, const int random=0) : _height(height), _width(width)
   {
+    if (random) std::srand(random);
     _data = allocDims(_height, _width);
     for (dim_t i=0; i<_height; ++i)
     {
       for (dim_t j=0; j<_width; ++j)
       {
-        _data[i][j] = 0;
+        if (random)
+          _data[i][j] = ((val_t)std::rand() / RAND_MAX * 2 - 1);
+        else
+          _data[i][j] = 0;
       }
     }
   }
@@ -187,6 +193,8 @@ public:
     if (this == &o)
       return *this; // otherwise "heap will get corrupted instantly" pg 10 of (http://www.umich.edu/~eecs381/lecture/Objectdynmemory.pdf)
     this->~Matrix();
+    _height = o.h();
+    _width = o.w();
     _data = allocDims(o.h(), o.w());
     for (dim_t i=0; i<o.h(); ++i)
     {

@@ -54,40 +54,20 @@ int main(const int argc, char **argv)
   const int UPDATES = 50;
 
 
-  printf("Creating network...\n");
+  printf("Creating network...\n\n");
   Network net(3);
-  // net.addLayer(3);
+  net.addLayer(5);
+  net.addLayer(3);
   net.addLayer(1);
-  net.train(inp, expected, 500000);
 
-  return 0;
-
-  for (int i = 1; i < CYCLES; ++i)
-  {
-    // Matrix<val_t> l1 = layer1->feed(inp);
-    // Matrix<val_t> l2 = layer2->feed(l1);
-
-    // Matrix<val_t> error = expected - l2;
-
-    // Matrix<val_t> l2_delta = layer2->backprop(l1, l2, expected - l2);
-    // Matrix<val_t> l1_delta = layer1->backprop(inp, l1, Matrix<val_t>::dot(l2_delta, Matrix<val_t>::transpose(layer2->syn_raw())));
-
-    // if (i % (CYCLES / UPDATES) == 0)
-    // {
-    //   printf("Input:\n");
-    //   inp.print();
-    //   printf("Output:\n");
-    //   l2.print();
-    //   printf("Exepected:\n");
-    //   expected.print();
-
-    //   val_t average_error = 0;
-    //   for (int i = 0; i < error.h(); ++i)
-    //     average_error += abs(error.get(i, 0));
-    //   average_error /= error.h();
-    //   printf("\n%d%% progress - error = %.5f\n\n----------\n", i * 100 / CYCLES, average_error);
-    // }
-  }
+  /*
+  Notes:
+  With network 19, 5, 3, 1 and an epoch size of 100K,
+    the training sometimes works and sometimes the
+    error goes to nan or 0.5 after about 30%. Is this
+    the vanishing or exploding gradient problem?
+  */
+  net.train(inp, expected, 100000);
 
   return 0;
 }

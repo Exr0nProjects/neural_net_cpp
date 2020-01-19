@@ -25,7 +25,6 @@ public:
    */
   Layer()
   {
-    printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\ncreating empty layer %x\n", this);
     _syn = Matrix<val_t>(1, 1);
     _actv = new Activation<val_t>("sigmoid");
     _width = 0;
@@ -36,11 +35,10 @@ public:
    * @param in_size Dimension of input to this layer
    * @param out_size Dimension of expected output (defaults to in_size)
    */
-  Layer(const dim_t in_size, const dim_t out_size, const unsigned seed = 1) : _height(in_size), _width(out_size), _syn(in_size, out_size)
+  Layer(const dim_t in_size, const dim_t out_size, const unsigned seed = 1) : _height(in_size), _width(out_size), _syn(in_size, out_size, 1)
   {
-    printf("creating new layer %x\n", this);
+    printf("Creating new layer %d -> %d (%x)\n", in_size, out_size, this);
 
-    _syn = Matrix<val_t>::random(in_size, out_size, seed); // ! Some weird shenanigans were causing the return value of Matrix<val_t>::random to not get copied... so I had to do this instead
     _actv = new Activation<val_t>("sigmoid");
   }
 
@@ -61,11 +59,11 @@ public:
    */
   Layer(const Layer &src) : _syn(src.syn_raw())
   {
-    printf("copy constructor called! copied %x (%dx%d) to %x (%dx%d)\n", &src, src.in_size(), src.out_size(), this, src.in_size(), src.out_size());
     _width = src.out_size();
     _height = src.in_size();
     _actv = new Activation<val_t>(*(src.actv_raw()));
 
+    printf("copied layer!\n");
     _syn.print();
   }
 
@@ -144,10 +142,8 @@ public:
       throw std::domain_error("Invalid 'out' or 'err' matrix dimensions for back propogation!");
 
     Matrix<val_t> delta = err * (_actv->deriv(out));
-    printf("update - dot product:\n");
-    Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), delta).print();
-    syn_raw().print(); // TODO: this is empty wtf
     update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), delta));
+
     return delta;
   }
 };
