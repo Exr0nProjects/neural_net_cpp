@@ -14,5 +14,5 @@ int main()
       // printf("%lf\n", (double)i/epoch);
     }
   }
-  printf("\e[3mepic.\n\n");
+  printf("\e[3;31mepic.\e[0m\n\n");
 }
