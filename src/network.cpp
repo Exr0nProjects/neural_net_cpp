@@ -5,6 +5,7 @@
 #include "matrix.cpp"
 #include "layer.cpp"
 #include "activation.cpp"
+#include "utility.cpp"
 
 /**
  * Network - a general model framework
@@ -62,8 +63,9 @@ public:
    * Train the network
    * @param epoch_size How many iterations to train through
    */
-  void train(const Matrix<val_t> &inp, Matrix<val_t> exp, const unsigned epoch = 500000)
+  void train(const Matrix<val_t> &inp, Matrix<val_t> exp, const unsigned epoch = 500000, const unsigned updates = 100)
   {
+    printf("\n\n");
     for (unsigned i = 0; i < epoch; ++i)
     {
       std::vector<Matrix<val_t>> snapshots;
@@ -79,18 +81,20 @@ public:
 
       if (i % (epoch / 100) == 0)
       {
-        printf("Input:\n");
-        inp.print();
-        printf("Output:\n");
-        snapshots[snapshots.size()-1].print();
-        printf("Exepected:\n");
-        exp.print();
+        // printf("Input:\n");
+        // inp.print();
+        // printf("Output:\n");
+        // snapshots[snapshots.size()-1].print();
+        // printf("Exepected:\n");
+        // exp.print();
+
+        progressBar(100, (double)i/epoch, 2, "=", " ", 10);
 
         val_t average_error = 0;
         for (int i = 0; i < error.h(); ++i)
           average_error += abs(error.get(i, 0));
         average_error /= error.h();
-        printf("\n%d%% progress - error = %.5f\n\n--------------------\n", i * 100 / epoch, average_error);
+        printf("error = %.5f\n", average_error);
       }
 
       // Backprop

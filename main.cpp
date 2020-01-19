@@ -42,7 +42,7 @@ int main(const int argc, char **argv)
   Matrix<val_t> expected = matrixIn<val_t>();
 
   const int CYCLES = 500000;
-  const int UPDATES = 50;
+  const int UPDATES = 500;
 
 
   printf("Creating network...\n\n");
@@ -58,7 +58,7 @@ int main(const int argc, char **argv)
     error goes to nan or 0.5 after about 30%. Is this
     the vanishing or exploding gradient problem?
   */
-  net.train(inp, expected, 100000);
+  net.train(inp, expected, CYCLES, UPDATES);
 
   return 0;
 }

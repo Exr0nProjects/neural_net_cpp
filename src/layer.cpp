@@ -37,7 +37,7 @@ public:
    */
   Layer(const dim_t in_size, const dim_t out_size, const unsigned seed = 1) : _height(in_size), _width(out_size), _syn(in_size, out_size, 1)
   {
-    printf("Creating new layer %d -> %d (%x)\n", in_size, out_size, this);
+    printf("Creating new layer %d -> %d\n", in_size, out_size);
 
     _actv = new Activation<val_t>("sigmoid");
   }
@@ -62,9 +62,6 @@ public:
     _width = src.out_size();
     _height = src.in_size();
     _actv = new Activation<val_t>(*(src.actv_raw()));
-
-    printf("copied layer!\n");
-    _syn.print();
   }
 
   ~Layer()
