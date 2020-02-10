@@ -20,7 +20,7 @@ This project was inspired by [iamtrask's toy neural net blogpost](https://iamtra
 
 Here's the master plan for this project. It is divided into stages:
 
-### Stage 1 - OOP Framework
+### Stage 1 - OOP Framework (Complete)
 
 I plan to write this decently well, and from scratch, which means that I will need to create some classes. At the moment, I'm thinking of writing a `Matrix` class that can implement all the math, a `Layer` class that acts implements a fully connected layer with methods like `init` and `activate` and `update` (for backprop), and finally a `Network` class that handles all the interfacing. Specifically, I plan to have the following basic functionality for each class:
 
@@ -38,13 +38,15 @@ I plan to write this decently well, and from scratch, which means that I will ne
   - [x] Single step wrapper `const Matrix& network.feed(const Matrix &input) -> output`
   - [x] Train wrapper (feed with backprop) `void network.train(const Matrix &input, const Matrix &expected, const int epochs)`
 
-### Stage 2 - Basic Functionality
+### Stage 2 - Basic Functionality (Complete)
 
-With all the base code written, I plan to write a simple `int main()` driver that mimics the functionality of Part 2 of [iamtrask's original post](https://iamtrask.github.io/2015/07/12/basic-python-network/). If the Stage 1 was written well, then this should go smoothly
+With all the base code written, I plan to write a simple `int main()` driver that mimics the functionality of Part 2 of [iamtrask's original post](https://iamtrask.github.io/2015/07/12/basic-python-network/). If the Stage 1 was written well, then this should go smoothly.
 
 ### Stage 3 - CUDA Madness
 
-Having a working CPU neural net in Python, I can finally complete the dream by converting my framework from Stage 1 to work with CUDA. This will probably be a pain, so I will update this section of the README later.
+Having a working CPU neural net in Python, I can finally complete the dream by converting my framework from Stage 1 to work with CUDA.
+
+I am working on this step now, but I don't know how exactly I should go about assigning operations to blocks and threads, because there is so much data manipulation involved that data transfer will probably be the main bottleneck. I need to think about how to paralellize operations without so much data movement.
 
 ### Other Notes
 
