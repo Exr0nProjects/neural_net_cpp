@@ -41,12 +41,11 @@ int main(const int argc, char **argv)
     Matrix<val_t> inp = matrixIn<val_t>();
     Matrix<val_t> expected = matrixIn<val_t>();
 
-    const int CYCLES = 500000;
+    const int CYCLES = 50000;
     const int UPDATES = 500;
 
     printf("Creating network...\n\n");
     Network net(3);
-    net.addLayer(5);
     net.addLayer(3);
     net.addLayer(1);
 

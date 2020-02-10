@@ -101,25 +101,18 @@ public:
 
     /**
    * Feed - feed forward through this layer
-   * @param in Matrix* of height in_size
-   * @return Matrix* of height out_size
+   * @param in Matrix of height in_size
+   * @return Matrix of height out_size
    */
-    Matrix<val_t> feed(const Matrix<val_t> *in) const
-    {
-        if (in->w() != _height)
-            throw std::domain_error("Invalid input matrix width!");
-
-        Matrix<val_t> p = Matrix<val_t>::dot(in, _syn);
-        p = (*_actv)(p);
-        return p;
-    }
     Matrix<val_t> feed(const Matrix<val_t> &in) const
     {
         if (in.w() != _height)
             throw std::domain_error("Invalid input matrix width for network propogation!");
 
+        
         Matrix<val_t> p = Matrix<val_t>::dot(in, _syn);
-        (*_actv)(p);
+        printf("  ");
+        (*_actv)(p); // TODO: copy construction involved in this line somewhere
         return p;
     }
 

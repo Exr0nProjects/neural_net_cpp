@@ -126,7 +126,7 @@ public:
    */
     Matrix(const Matrix &src) : Matrix(src.height(), src.width())
     {
-        // printf("ctor: copying matrix %x->%x\n", &src, this);
+        printf("ctor: copying matrix %x->%x\n", &src, this);
         for (dim_t i = 0; i < _height; ++i)
             for (dim_t j = 0; j < _width; ++j)
                 set(i, j, src.get(i, j));
@@ -149,6 +149,7 @@ public:
     /* methods */
     Matrix &operator=(const Matrix &o)
     { // TODO: rewrite for efficiency? https://docs.microsoft.com/en-us/archive/msdn-magazine/2005/september/c-at-work-copy-constructors-assignment-operators-and-more
+        printf("copy assignment of %x!\n", &o);
         if (this == &o)
             return *this; // otherwise "heap will get corrupted instantly" pg 10 of (http://www.umich.edu/~eecs381/lecture/Objectdynmemory.pdf)
         this->~Matrix();
