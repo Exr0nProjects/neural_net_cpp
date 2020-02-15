@@ -4,7 +4,7 @@ import numpy as np
 
 
 def nonlin(x, deriv=False):
-    if(deriv == True):
+    if deriv is True:
         return x*(1-x)
     return 1/(1+np.exp(-x))
 
@@ -49,7 +49,7 @@ print("Output After Training:")
 print(l1)
 
 while True:
-  s = input("Input four numbers:\n")
-  s = np.array([int(x) for x in s.strip().split(' ')])
-  s = nonlin(np.dot(s, syn0))
-  print(s)
+    s = input("Input four numbers:\n")
+    s = np.array([int(x) for x in s.strip().split(' ')])
+    s = nonlin(np.dot(s, syn0))
+    print(s)
