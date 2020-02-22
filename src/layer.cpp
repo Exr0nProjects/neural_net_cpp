@@ -1,6 +1,6 @@
 #pragma once
 
-#include "matrix.cpp"
+#include "matrix_cuda.cpp"
 #include "activation.cpp"
 
 #include <string>
@@ -109,31 +109,31 @@ public:
         if (in.w() != _height)
             throw std::domain_error("Invalid input matrix width for network propogation!");
 
-        
-        Matrix<val_t> p = Matrix<val_t>::dot(in, _syn);
-        printf("  ");
+
+    Matrix<val_t> p = Matrix<val_t>::dot(in, _syn);
+        //printf("  ");
         (*_actv)(p); // TODO: copy construction involved in this line somewhere
         return p;
     }
 
     /**
    * Calculates and applies the weight changes asserted by backpropogation
-   * 
+   *
    * @param inp Weights that were input to this layer during training
    * @param out Weights that this layer returned
    * @param err The error in the returned value `out`
    * @return The modifications made
    */
-    Matrix<val_t> backprop(const Matrix<val_t> &inp, const Matrix<val_t> &out, const Matrix<val_t> &err)
+    Matrix<val_t> backprop(const Matrix<val_t> &inp, const Matrix<val_t> &out, Matrix<val_t> err)
     {
         if (inp.h() != err.h())
             throw std::domain_error("Invalid 'inp' matrix dimensions for back propogation!");
         if (out.w() != err.w() || out.h() != err.h())
             throw std::domain_error("Invalid 'out' or 'err' matrix dimensions for back propogation!");
 
-        Matrix<val_t> delta = err * (_actv->deriv(out));
-        update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), delta));
+        err *= (_actv->deriv(out));
+        update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), err));
 
-        return delta;
+        return err;
     }
 };

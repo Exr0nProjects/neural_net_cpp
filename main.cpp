@@ -8,7 +8,7 @@
 #include <vector>
 
 #pragma once
-#include "src/matrix.cpp"
+#include "src/matrix_cuda.cpp"
 #include "src/activation.cpp"
 #include "src/layer.cpp"
 #include "src/network.cpp"
@@ -40,6 +40,7 @@ int main(const int argc, char **argv)
     typedef float val_t;
     Matrix<val_t> inp = matrixIn<val_t>();
     Matrix<val_t> expected = matrixIn<val_t>();
+    printf("expected dims: %dx%d\n", expected.h(), expected.w());
 
     const int CYCLES = 50000;
     const int UPDATES = 500;

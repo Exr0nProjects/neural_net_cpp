@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "matrix.cpp"
+#include "matrix_cuda.cpp"
 #include "layer.cpp"
 #include "activation.cpp"
 #include "utility.cpp"
@@ -77,7 +77,8 @@ public:
                 snapshots.push_back(layer.feed(snapshots[snapshots.size() - 1]));
             }
 
-            Matrix<val_t> error = exp - snapshots[snapshots.size() - 1];
+            Matrix<val_t> error = exp;
+            error -= snapshots[snapshots.size() - 1];
 
             if (i % (epoch / 100) == 0)
             {
@@ -88,19 +89,19 @@ public:
                 // printf("Exepected:\n");
                 // exp.print();
 
-                progressBar(100, (double)i / epoch, 2, "=", " ", 10);
+                progressBar(50, (double)i / epoch, 2, "=", " ", 10);
 
                 val_t average_error = 0;
                 for (int i = 0; i < error.h(); ++i)
                     average_error += abs(error.get(i, 0));
-                average_error /= error.h();
+                average_error /= exp.h() * exp.w();
                 printf("error = %.5f\n", average_error);
             }
 
             // Backprop
             for (int i = layers.size() - 1; i >= 0; --i)
             {
-                Matrix<val_t> delta = layers[i].backprop(snapshots[i], snapshots[i + 1], error);
+                Matrix<val_t> delta = layers[i].backprop(snapshots[i], snapshots[i + 1], error);  //  TODO: don't  copy exp then copy back, just use the same memory
                 Matrix<val_t> synT = Matrix<val_t>::transpose(layers[i].syn_raw());
 
                 error = Matrix<val_t>::dot(

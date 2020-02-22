@@ -1,6 +1,6 @@
 #pragma once
 
-#include "matrix.cpp"
+#include "matrix_cuda.cpp"
 
 template <class val_t>
 class Activation
