@@ -48,15 +48,18 @@ template <class val_t> class Matrix {
             throw std::domain_error(
                     "Invalid matrix dimensions for static dot multiplication!");
         Matrix ret(lhs.h(), rhs.w());
+        printf("        created ret\n");
         for (dim_t r = 0; r < lhs.h(); ++r) {
             for (dim_t c = 0; c < rhs.w(); ++c) {
                 val_t sum = 0;
                 for (dim_t i = 0; i < lhs.w(); ++i) {
                     sum += lhs.get(r, i) * rhs.get(i, c);
                 }
+                printf("            setting ret\n");
                 ret.set(r, c, sum);
             }
         }
+        printf("        about to return from matrix dot\n");
         return ret;
     }
 

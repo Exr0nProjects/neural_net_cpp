@@ -98,14 +98,19 @@ public:
                 printf("error = %.5f\n", average_error);
             }
 
+            printf("starting backprop...\n\n");
+
             // Backprop
             for (int i = layers.size() - 1; i >= 0; --i)
             {
+                printf("backprop i=%d\n", i);
                 Matrix<val_t> delta = layers[i].backprop(snapshots[i], snapshots[i + 1], error);  //  TODO: don't  copy exp then copy back, just use the same memory
+                printf("    got delta\n");
                 Matrix<val_t> synT = Matrix<val_t>::transpose(layers[i].syn_raw());
+                printf("    got syn transpose\n");
 
-                error = Matrix<val_t>::dot(
-                    delta, synT);
+                error = Matrix<val_t>::dot(delta, synT);
+                printf("    got error\n");
             }
         }
     }
