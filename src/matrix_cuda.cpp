@@ -13,16 +13,13 @@
  */
 template <class val_t> class Matrix {
     typedef unsigned dim_t;
-    val_t **_data;
+    val_t *_data;
     dim_t _height;
     dim_t _width;
     int _id;
 
-    static val_t **allocDims(dim_t h, dim_t w) {
-        val_t **ret = new val_t *[h];
-        for (dim_t i = 0; i < h; ++i) {
-            ret[i] = new val_t[w];
-        }
+    static val_t *allocDims(dim_t h, dim_t w) {
+        val_t *ret = new val_t[h*w];
         return ret;
     }
 
@@ -65,8 +62,7 @@ template <class val_t> class Matrix {
 
     /* constructors/destructors */
     Matrix() {
-        _data = new val_t *;
-        *_data = new val_t;
+        _data = new val_t;
         _height = 0;
         _width = 0;
         _id = rand();
@@ -85,9 +81,9 @@ template <class val_t> class Matrix {
             for (dim_t i = 0; i < _height; ++i) {
                 for (dim_t j = 0; j < _width; ++j) {
                     if (random)
-                        _data[i][j] = ((val_t)std::rand() / RAND_MAX * 2 - 1);
+                        set(i, j, (val_t)std::rand() / RAND_MAX * 2 - 1);
                     else
-                        _data[i][j] = 0;
+                        set(i, j, 0);
                 }
             }
         }
@@ -121,14 +117,10 @@ template <class val_t> class Matrix {
     }
 
     ~Matrix() {
+        // TODO: rewrite for 1d array
         if (_data == nullptr)
             return;
-        for (dim_t i = 0; i < _height; ++i) {
-            if (_data[i] != nullptr) {
-                delete[] _data[i];
-            }
-        }
-        delete[] _data;
+        delete _data;
     }
 
     /* methods */
@@ -144,7 +136,7 @@ template <class val_t> class Matrix {
       _data = allocDims(o.h(), o.w());
       for (dim_t i = 0; i < o.h(); ++i) {
         for (dim_t j = 0; j < o.h(); ++j) {
-          _data[i][j] = o.get(i, j);
+          set(i, j, o.get(i, j));
         }
       }
       return *this;
@@ -185,7 +177,9 @@ template <class val_t> class Matrix {
      * @param x The column of the element to be retrieved
      * @return val_t The value of the element at that position
      */
-    inline val_t get(const dim_t y, const dim_t x) const { return _data[y][x]; }
+    inline val_t get(const dim_t y, const dim_t x) const {
+      return _data[y * _width + x];
+    }
     /**
      * Set the value in the matrix at (x, y)
      * @param y The row of the element to be set
@@ -193,7 +187,7 @@ template <class val_t> class Matrix {
      * @param dat The data to be copied into that position
      */
     inline void set(const dim_t y, const dim_t x, const val_t &dat) {
-        _data[y][x] = dat;
+        _data[y * _width + x] = dat;
     }
 
     // TODO: check that this works

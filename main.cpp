@@ -57,6 +57,7 @@ int main(const int argc, char **argv)
     error goes to nan or 0.5 after about 30%. Is this
     the vanishing or exploding gradient problem?
   */
+    printf("training network.....\n");
     net.train(inp, expected, CYCLES, UPDATES);
 
     return 0;
