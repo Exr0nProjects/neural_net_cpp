@@ -59,7 +59,7 @@ template <class val_t> class Matrix {
                 ret.set(r, c, sum);
             }
         }
-        printf("        about to return from matrix dot\n");
+        printf("        about to return from matrix dot (ret at %x)\n", &ret);
         return ret;
     }
 
@@ -133,6 +133,7 @@ template <class val_t> class Matrix {
       if (this == &o)
         return *this; // otherwise "heap will get corrupted instantly" pg 10 of
       // (http://www.umich.edu/~eecs381/lecture/Objectdynmemory.pdf)
+      printf("copy assignment called!");
       this->~Matrix();
       _height = o.h();
       _width = o.w();

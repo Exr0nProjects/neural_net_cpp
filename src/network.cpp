@@ -110,7 +110,8 @@ public:
                 printf("    got syn transpose\n");
 
                 error = Matrix<val_t>::dot(delta, synT);
-                printf("    got error\n");
+                //Matrix<val_t>::dot(delta, synT);
+                printf("    got error at %x\n", &error);
             }
         }
     }
