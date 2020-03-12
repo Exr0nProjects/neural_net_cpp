@@ -29,12 +29,11 @@ template <class val_t> class Matrix {
      * Transposes this matrix in place
      * @param src The source matrix (modified)
      */
-    static Matrix<val_t> transpose(const Matrix &src) {
-        Matrix ret(src.w(), src.h());
+    static Matrix<val_t> transpose(Matrix &src) {
         for (dim_t h = 0; h < src.h(); ++h)
             for (dim_t w = 0; w < src.w(); ++w)
-                ret.set(w, h, src.get(h, w));
-        return ret;
+                src.set(w, h, src.get(h, w));
+        return src;
     }
 
     /**
