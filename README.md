@@ -4,7 +4,10 @@
 
 ## Current Status
 
-Although the OOP framework has not yet been completed, this system is in a semi-functional state in that it compiles and trains with no error. However, the backpropogation algorithm currently maximizes the error, which is obviously not ideal. This issue requires further investigation.
+Part of the way through transitioning to paralell processing, I realized that working with cross device memory efficiently is difficult.
+I am currently researching existing strategies for optimization, such as in place matrix transposition (which is surprisingly difficult) and otherwise reconsidering life choices.
+
+I've also been working on some side projects, so this one is somewhat on hold for the moment. Until then!
 
 ## Summary
 
