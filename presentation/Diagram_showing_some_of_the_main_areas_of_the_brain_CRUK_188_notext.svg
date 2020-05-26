@@ -10,14 +10,14 @@
 	.st4{fill:#FFDFF8;}
 	.st5{fill:#FFF2CD;stroke:#FFCA05;stroke-width:0.75;}
 	.st6{fill:#FFB4C3;}
-	.st7{fill:#FFFFFF;stroke:#939393;stroke-width:0.2;stroke-miterlimit:10;}
-	.st8{fill:#0DE900;}
-	.st9{enable-background:new    ;}
-	.st10{font-family:'EuphemiaUCAS-Bold';}
-	.st11{font-size:22.9646px;}
-	.st12{opacity:0.82;}
-	.st13{font-family:'Bauhaus93';}
-	.st14{font-size:39.2815px;}
+	.st7{fill:#FFFFFF;stroke:#939393;stroke-width:2;stroke-miterlimit:10;}
+	.st8{opacity:0.82;}
+	.st9{font-family:'Bauhaus93';}
+	.st10{font-size:39.2815px;}
+	.st11{enable-background:new    ;}
+	.st12{fill:#0DE900;}
+	.st13{font-family:'EuphemiaUCAS-Bold';}
+	.st14{font-size:22.9646px;}
 	.st15{fill:#7AA4FF;}
 	.st16{font-size:24.1733px;}
 	.st17{font-size:24.1735px;}
@@ -1196,75 +1196,77 @@
 	<line class="st7" x1="1221" y1="579.1" x2="1046.6" y2="109"/>
 </g>
 <g id="Brain_Labels_1_">
-	<path class="st8" d="M773.6,394H554.3c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
-		c16.4,0,30.2,16.9,30.2,37.2v7.6C803.7,377.9,790,394,773.6,394z"/>
-	<text transform="matrix(1 0 0 1 580.1035 345.3672)" class="st9"><tspan x="0" y="0" class="st10 st11">Reinforcement</tspan><tspan x="34" y="27.6" class="st10 st11">Learning</tspan></text>
-	<path class="st8" d="M1198.4,398.1H979.1c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
-		c16.4,0,30.2,16.9,30.2,37.2v7.6C1228.5,382,1215.5,398.1,1198.4,398.1z"/>
-	<text transform="matrix(1 0 0 1 1018.0059 349.4785)" class="st9"><tspan x="0" y="0" class="st10 st11">Dense, RNN,</tspan><tspan x="-4.2" y="27.6" class="st10 st11">NEAT, WANN</tspan></text>
-	<path class="st8" d="M1109.3,544.6H890c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
-		c16.4,0,30.2,16.9,30.2,37.2v7.6C1139.4,527.7,1125.7,544.6,1109.3,544.6z"/>
-	<text transform="matrix(1 0 0 1 918.9971 497.749)" class="st9"><tspan x="0" y="0" class="st10 st11">Word Vectors</tspan><tspan x="-30.9" y="27.6" class="st10 st11">Sentiment Analysis</tspan></text>
-	<path class="st8" d="M697.9,655H478.6c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
-		c16.4,0,30.2,16.9,30.2,37.2v7.6C728.1,638.1,714.4,655,697.9,655z"/>
-	<text transform="matrix(1 0 0 1 517.1533 606.3389)" class="st9"><tspan x="0" y="0" class="st10 st11">Transformer</tspan><tspan x="18.5" y="27.6" class="st10 st11">Networks</tspan></text>
-	<path class="st8" d="M970.1,720.3H750.8c-16.4,0-30.2-16.9-30.2-37.2v-8.5c0-20.3,13.7-37.2,30.2-37.2h219.3
-		c16.4,0,30.2,16.9,30.2,37.2v7.6C1000.2,703.4,986.5,720.3,970.1,720.3z"/>
-	<text transform="matrix(1 0 0 1 803.8975 671.2852)" class="st9"><tspan x="0" y="0" class="st10 st11">Recurrent</tspan><tspan x="3.9" y="27.6" class="st10 st11">Networks</tspan></text>
-	<path class="st8" d="M1423.4,646.3h-219.3c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
-		c16.4,0,30.2,16.9,30.2,37.2v7.6C1453.5,629.4,1439.8,646.3,1423.4,646.3z"/>
-	<text transform="matrix(1 0 0 1 1233.459 597.6748)" class="st9"><tspan x="0" y="0" class="st10 st11">Convolutional</tspan><tspan x="27.7" y="27.6" class="st10 st11">Networks</tspan></text>
-	<path class="st8" d="M821.7,882.4H602.4c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
-		c16.4,0,30.2,16.9,30.2,37.2v7.6C852.5,866.3,838.8,882.4,821.7,882.4z"/>
-	<text transform="matrix(1 0 0 1 649.3154 833.7617)" class="st9"><tspan x="0" y="0" class="st10 st11">Generative</tspan><tspan x="-34.2" y="27.6" class="st10 st11">Adversarial Nets</tspan></text>
-	<path class="st8" d="M1302.2,882.4h-219.3c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
-		c16.4,0,30.2,16.9,30.2,37.2v7.6C1333,865.5,1319.3,882.4,1302.2,882.4z"/>
-	<text transform="matrix(1 0 0 1 1121.8594 833.7666)" class="st9"><tspan x="0" y="0" class="st10 st11">Dense, RNN,</tspan><tspan x="-4.2" y="27.6" class="st10 st11">NEAT, WANN</tspan></text>
-	<g class="st12">
-		<text transform="matrix(1 0 0 1 565.082 299.6504)" class="st13 st14">Planning</text>
-		<text transform="matrix(1 0 0 1 897.9082 276.377)" class="st9"><tspan x="0" y="0" class="st13 st14">Sensory</tspan><tspan x="0" y="30.2" class="st13 st14">Association</tspan></text>
-		<text transform="matrix(1 0 0 1 900.0986 448.6201)" class="st13 st14">Language</text>
-		<text transform="matrix(1 0 0 1 538.9922 561.0361)" class="st13 st14">Speech</text>
-		<text transform="matrix(1 0 0 1 748.6582 630.1689)" class="st13 st14">Short Term Memory</text>
-		<text transform="matrix(1 0 0 1 1220.9668 555.7324)" class="st13 st14">Vision</text>
-		<text transform="matrix(1 0 0 1 603.4414 787.2373)" class="st13 st14">Imagination</text>
-		<text transform="matrix(1 0 0 1 1010.8232 791.3818)" class="st13 st14">Motor Control</text>
-		<text transform="matrix(1 0 0 1 390.3477 433.335)" class="st13 st14">Prediction</text>
+	<g class="st8">
+		<text transform="matrix(1 0 0 1 565.082 299.6504)" class="st9 st10">Planning</text>
+		<text transform="matrix(1 0 0 1 897.9082 276.377)" class="st11"><tspan x="0" y="0" class="st9 st10">Sensory</tspan><tspan x="0" y="30.2" class="st9 st10">Association</tspan></text>
+		<text transform="matrix(1 0 0 1 900.0986 448.6201)" class="st9 st10">Language</text>
+		<text transform="matrix(1 0 0 1 538.9922 561.0361)" class="st9 st10">Speech</text>
+		<text transform="matrix(1 0 0 1 748.6582 630.1689)" class="st9 st10">Short Term Memory</text>
+		<text transform="matrix(1 0 0 1 1220.9668 555.7324)" class="st9 st10">Vision</text>
+		<text transform="matrix(1 0 0 1 603.4414 787.2373)" class="st9 st10">Imagination</text>
+		<text transform="matrix(1 0 0 1 1010.8232 791.3818)" class="st9 st10">Motor Control</text>
+		<text transform="matrix(1 0 0 1 390.3477 433.335)" class="st9 st10">Prediction</text>
 	</g>
-	<path class="st8" d="M617.6,519.8H398.3c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
-		c16.4,0,30.2,16.9,30.2,37.2v7.6C647.8,503.7,634.1,519.8,617.6,519.8z"/>
-	<text transform="matrix(1 0 0 1 461.8066 471.124)" class="st9"><tspan x="0" y="0" class="st10 st11">Literally</tspan><tspan x="-19.7" y="27.6" class="st10 st11">Everything*</tspan></text>
+	<g>
+		<path class="st12" d="M773.6,394H554.3c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
+			c16.4,0,30.2,16.9,30.2,37.2v7.6C803.7,377.9,790,394,773.6,394z"/>
+		<text transform="matrix(1 0 0 1 580.1035 345.3672)" class="st11"><tspan x="0" y="0" class="st13 st14">Reinforcement</tspan><tspan x="34" y="27.6" class="st13 st14">Learning</tspan></text>
+		<path class="st12" d="M1198.4,398.1H979.1c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
+			c16.4,0,30.2,16.9,30.2,37.2v7.6C1228.5,382,1215.5,398.1,1198.4,398.1z"/>
+		<text transform="matrix(1 0 0 1 1018.0059 349.4785)" class="st11"><tspan x="0" y="0" class="st13 st14">Dense, RNN,</tspan><tspan x="-4.2" y="27.6" class="st13 st14">NEAT, WANN</tspan></text>
+		<path class="st12" d="M1109.3,544.6H890c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
+			c16.4,0,30.2,16.9,30.2,37.2v7.6C1139.4,527.7,1125.7,544.6,1109.3,544.6z"/>
+		<text transform="matrix(1 0 0 1 918.9971 497.749)" class="st11"><tspan x="0" y="0" class="st13 st14">Word Vectors</tspan><tspan x="-30.9" y="27.6" class="st13 st14">Sentiment Analysis</tspan></text>
+		<path class="st12" d="M697.9,655H478.6c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
+			c16.4,0,30.2,16.9,30.2,37.2v7.6C728.1,638.1,714.4,655,697.9,655z"/>
+		<text transform="matrix(1 0 0 1 517.1533 606.3389)" class="st11"><tspan x="0" y="0" class="st13 st14">Transformer</tspan><tspan x="18.5" y="27.6" class="st13 st14">Networks</tspan></text>
+		<path class="st12" d="M970.1,720.3H750.8c-16.4,0-30.2-16.9-30.2-37.2v-8.5c0-20.3,13.7-37.2,30.2-37.2h219.3
+			c16.4,0,30.2,16.9,30.2,37.2v7.6C1000.2,703.4,986.5,720.3,970.1,720.3z"/>
+		<text transform="matrix(1 0 0 1 803.8975 671.2852)" class="st11"><tspan x="0" y="0" class="st13 st14">Recurrent</tspan><tspan x="3.9" y="27.6" class="st13 st14">Networks</tspan></text>
+		<path class="st12" d="M1423.4,646.3h-219.3c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
+			c16.4,0,30.2,16.9,30.2,37.2v7.6C1453.5,629.4,1439.8,646.3,1423.4,646.3z"/>
+		<text transform="matrix(1 0 0 1 1233.459 597.6748)" class="st11"><tspan x="0" y="0" class="st13 st14">Convolutional</tspan><tspan x="27.7" y="27.6" class="st13 st14">Networks</tspan></text>
+		<path class="st12" d="M821.7,882.4H602.4c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
+			c16.4,0,30.2,16.9,30.2,37.2v7.6C852.5,866.3,838.8,882.4,821.7,882.4z"/>
+		<text transform="matrix(1 0 0 1 649.3154 833.7617)" class="st11"><tspan x="0" y="0" class="st13 st14">Generative</tspan><tspan x="-34.2" y="27.6" class="st13 st14">Adversarial Nets</tspan></text>
+		<path class="st12" d="M1302.2,882.4h-219.3c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
+			c16.4,0,30.2,16.9,30.2,37.2v7.6C1333,865.5,1319.3,882.4,1302.2,882.4z"/>
+		<text transform="matrix(1 0 0 1 1121.8594 833.7666)" class="st11"><tspan x="0" y="0" class="st13 st14">Dense, RNN,</tspan><tspan x="-4.2" y="27.6" class="st13 st14">NEAT, WANN</tspan></text>
+		<path class="st12" d="M617.6,519.8H398.3c-16.4,0-30.2-16.9-30.2-37.2v-7.6c0-20.3,13.7-37.2,30.2-37.2h219.3
+			c16.4,0,30.2,16.9,30.2,37.2v7.6C647.8,503.7,634.1,519.8,617.6,519.8z"/>
+		<text transform="matrix(1 0 0 1 461.8066 471.124)" class="st11"><tspan x="0" y="0" class="st13 st14">Literally</tspan><tspan x="-19.7" y="27.6" class="st13 st14">Everything*</tspan></text>
+	</g>
 	<g>
 		<path class="st15" d="M1623.4,301.8h-214.1c-16.1,0-29.4-12.1-29.4-26.6v-5.4c0-14.5,13.4-26.6,29.4-26.6h214.1
 			c16.1,0,29.4,12.1,29.4,26.6v5.4C1652.9,289.7,1639.5,301.8,1623.4,301.8z"/>
-		<text transform="matrix(1 0 0 1 1395.4346 283.9668)" class="st10 st16">Vehicle Automation</text>
+		<text transform="matrix(1 0 0 1 1395.4346 283.9668)" class="st13 st16">Vehicle Automation</text>
 		<path class="st15" d="M1143.3,115.6H949.9c-14.5,0-26.6-12.1-26.6-26.6v-5.4c0-14.5,12.1-26.6,26.6-26.6h193.4
 			c14.5,0,26.6,12.1,26.6,26.6V89C1169.9,103.5,1157.8,115.6,1143.3,115.6z"/>
-		<text transform="matrix(1 0 0 1 985.7148 95.4883)" class="st10 st16">Healthcare</text>
+		<text transform="matrix(1 0 0 1 985.7148 95.4883)" class="st13 st16">Healthcare</text>
 		<path class="st15" d="M539.4,139.6H346c-14.5,0-26.6-12.1-26.6-26.6v-5.4c0-14.5,12.1-26.6,26.6-26.6h193.4
 			c14.5,0,26.6,12.1,26.6,26.6v5.4C566,127.5,553.9,139.6,539.4,139.6z"/>
-		<text transform="matrix(1 0 0 1 357.4258 116.7988)" class="st10 st16">Entertainment</text>
+		<text transform="matrix(1 0 0 1 357.4258 116.7988)" class="st13 st16">Entertainment</text>
 		<path class="st15" d="M1729.4,581.6H1536c-14.5,0-26.6-12.1-26.6-26.6v-5.4c0-14.5,12.1-26.6,26.6-26.6h193.4
 			c14.5,0,26.6,12.1,26.6,26.6v5.4C1756,569.5,1743.9,581.6,1729.4,581.6z"/>
-		<text transform="matrix(1 0 0 1 1598.5635 561.6396)" class="st10 st16">Retail</text>
+		<text transform="matrix(1 0 0 1 1598.5635 561.6396)" class="st13 st16">Retail</text>
 		<path class="st15" d="M237.5,686.9H44.1c-14.5,0-26.6-12.1-26.6-26.6v-5.4c0-14.5,12.1-26.6,26.6-26.6h193.4
 			c14.5,0,26.6,12.1,26.6,26.6v5.4C264.1,674.8,252,686.9,237.5,686.9z"/>
-		<text transform="matrix(1 0 0 1 72.3364 666.8174)" class="st10 st16">Advertising</text>
+		<text transform="matrix(1 0 0 1 72.3364 666.8174)" class="st13 st16">Advertising</text>
 		<path class="st15" d="M235.2,403.3H41.8c-14.5,0-26.6-12.1-26.6-26.6v-5.4c0-14.5,12.1-26.6,26.6-26.6h193.4
 			c14.5,0,26.6,12.1,26.6,26.6v5.4C261.8,391.2,249.7,403.3,235.2,403.3z"/>
-		<text transform="matrix(1 0 0 1 79.1167 383.1416)" class="st10 st16">Academia</text>
+		<text transform="matrix(1 0 0 1 79.1167 383.1416)" class="st13 st16">Academia</text>
 		<path class="st15" d="M1685.9,857.8h-193.4c-14.5,0-26.6-12.1-26.6-26.6v-5.4c0-14.5,12.1-26.6,26.6-26.6h193.4
 			c14.5,0,26.6,12.1,26.6,26.6v5.4C1712.5,845.7,1700.4,857.8,1685.9,857.8z"/>
-		<text transform="matrix(1 0 0 1 1506.2939 834.9453)" class="st10 st16">Cybersecurity</text>
+		<text transform="matrix(1 0 0 1 1506.2939 834.9453)" class="st13 st16">Cybersecurity</text>
 		<path class="st15" d="M390.9,927.2H197.5c-14.5,0-26.6-12.1-26.6-26.6v-5.4c0-14.5,12.1-26.6,26.6-26.6h193.4
 			c14.5,0,26.6,12.1,26.6,26.6v5.4C417.5,915.2,405.4,927.2,390.9,927.2z"/>
-		<text transform="matrix(1 0 0 1 247.3555 907.1152)" class="st10 st16">Finance</text>
+		<text transform="matrix(1 0 0 1 247.3555 907.1152)" class="st13 st16">Finance</text>
 		<path class="st15" d="M818.7,1079.2l-193.4,3c-14.5,0-26.6-11.5-27.2-26v-5.4c0-14.5,11.5-26.6,26-27.2l193.4-3
 			c14.5,0,26.6,11.5,27.2,26v5.4C844.6,1066.5,833.2,1079.2,818.7,1079.2z"/>
-		<text transform="matrix(0.9999 -1.496645e-02 1.496645e-02 0.9999 615.5283 1061.6851)" class="st10 st17">Law Enforcement</text>
+		<text transform="matrix(0.9999 -1.496645e-02 1.496645e-02 0.9999 615.5283 1061.6851)" class="st13 st17">Law Enforcement</text>
 		<path class="st15" d="M1359.6,1061.7h-193.4c-14.5,0-26.6-12.1-26.6-26.6v-5.4c0-14.5,12.1-26.6,26.6-26.6h193.4
 			c14.5,0,26.6,12.1,26.6,26.6v5.4C1386.2,1049.6,1374.2,1061.7,1359.6,1061.7z"/>
-		<text transform="matrix(1 0 0 1 1172.9316 1038.8652)" class="st10 st16">Transportation</text>
+		<text transform="matrix(1 0 0 1 1172.9316 1038.8652)" class="st13 st16">Transportation</text>
 	</g>
 </g>
 </svg>
