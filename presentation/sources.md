@@ -9,4 +9,10 @@ industries using ai
 [Forbes uses of AI](https://www.forbes.com/sites/robertadams/2017/01/10/10-powerful-examples-of-artificial-intelligence-in-use-today/#799ce32d420d)
 [Training Word Vectors](https://iksinc.online/tag/continuous-bag-of-words-cbow/)
 [Brain Reigons](https://www.dana.org/wp-content/uploads/2019/08/anatomy-function-brain-areas-basics-aug-2019-2024.jpg)
+[Sentiment Analysis](https://medium.com/@northof41/what-really-is-sentiment-analysis-and-how-does-it-work-c812b962f643)
+[More Detailed Sentiment Analysis](https://monkeylearn.com/sentiment-analysis/)
+[Speech Synthesis Wikipedia](https://en.wikipedia.org/wiki/Speech_synthesis)
+[Protien Folding AI: AlphaFold](https://deepmind.com/blog/article/AlphaFold-Using-AI-for-scientific-discovery)
+[More Specific Protien Folding Paper (linked from above)](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005324)
+[Intro to Residual Networks: basically a truncated LSTM or Gated RNN](https://towardsdatascience.com/introduction-to-resnets-c0a830a288a4)
 
