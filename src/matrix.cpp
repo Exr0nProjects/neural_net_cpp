@@ -170,7 +170,7 @@ public:
    */
     void print(const unsigned precision = 3) const
     {
-        printf("Printing Matrix %x\n", this);
+        //printf("Printing Matrix %x\n", this);
 
         for (int i = 0; i < _height; ++i)
         {

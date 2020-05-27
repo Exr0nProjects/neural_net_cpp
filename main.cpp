@@ -40,7 +40,8 @@ int main(const int argc, char **argv)
     typedef float val_t;
     Matrix<val_t> inp = matrixIn<val_t>();
     Matrix<val_t> expected = matrixIn<val_t>();
-    printf("expected dims: %dx%d\n", expected.h(), expected.w());
+	Matrix<val_t> validation = matrixIn<val_t>();
+    //printf("expected dims: %dx%d\n", expected.h(), expected.w());
 
     const int CYCLES = 50000;
     const int UPDATES = 500;
@@ -57,8 +58,14 @@ int main(const int argc, char **argv)
     error goes to nan or 0.5 after about 30%. Is this
     the vanishing or exploding gradient problem?
   */
-    printf("training network.....\n");
+    printf("Training network.....\n");
     net.train(inp, expected, CYCLES, UPDATES);
+
+	printf("Training completed. Testing network...\n");
+	printf("Test data:\n");
+	validation.print();
+	printf("Test result:\n");
+	net.feed(validation).print();
 
     return 0;
 }
