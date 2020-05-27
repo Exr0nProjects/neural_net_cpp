@@ -126,7 +126,6 @@ public:
    */
     Matrix(const Matrix &src) : Matrix(src.height(), src.width())
     {
-        printf("ctor: copying matrix %x->%x\n", &src, this);
         for (dim_t i = 0; i < _height; ++i)
             for (dim_t j = 0; j < _width; ++j)
                 set(i, j, src.get(i, j));
@@ -149,7 +148,6 @@ public:
     /* methods */
     Matrix &operator=(const Matrix &o)
     { // TODO: rewrite for efficiency? https://docs.microsoft.com/en-us/archive/msdn-magazine/2005/september/c-at-work-copy-constructors-assignment-operators-and-more
-        printf("copy assignment of %x!\n", &o);
         if (this == &o)
             return *this; // otherwise "heap will get corrupted instantly" pg 10 of (http://www.umich.edu/~eecs381/lecture/Objectdynmemory.pdf)
         this->~Matrix();
@@ -226,25 +224,23 @@ public:
     /**
    * Operator overloads
    */
-    Matrix<val_t> operator-(const Matrix<val_t> &o) const
+    Matrix<val_t> operator-=(const Matrix<val_t> &o)
     {
         if (w() != o.w() || h() != o.h())
             throw std::domain_error("Invalid matrix dimesions for element-wise subtract!");
-        Matrix ret(h(), w());
         for (dim_t i = 0; i < h(); ++i)
             for (dim_t j = 0; j < w(); ++j)
-                ret.set(i, j, get(i, j) - o.get(i, j));
-        return ret;
+                set(i, j, get(i, j) - o.get(i, j));
+	return *this;
     }
-    Matrix<val_t> operator*(const Matrix<val_t> &o) const
+    Matrix<val_t> operator*=(const Matrix<val_t> &o)
     {
         if (w() != o.w() || h() != o.h())
             throw std::domain_error("Invalid matrix dimesions for element-wise multiply!");
-        Matrix ret(h(), w());
         for (dim_t i = 0; i < h(); ++i)
             for (dim_t j = 0; j < w(); ++j)
-                ret.set(i, j, get(i, j) * o.get(i, j));
-        return ret;
+                set(i, j, get(i, j) * o.get(i, j));
+        return *this;
     }
 
     /**

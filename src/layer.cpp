@@ -1,6 +1,6 @@
 #pragma once
 
-#include "matrix_cuda.cpp"
+#include "matrix.cpp"
 #include "activation.cpp"
 
 #include <string>
@@ -37,8 +37,6 @@ public:
    */
     Layer(const dim_t in_size, const dim_t out_size, const unsigned seed = 1) : _height(in_size), _width(out_size), _syn(in_size, out_size, 1)
     {
-        printf("Creating new layer %d -> %d\n", in_size, out_size);
-
         _actv = new Activation<val_t>("sigmoid");
     }
 
@@ -111,7 +109,6 @@ public:
 
 
     Matrix<val_t> p = Matrix<val_t>::dot(in, _syn);
-        //printf("  ");
         (*_actv)(p); // TODO: copy construction involved in this line somewhere
         return p;
     }

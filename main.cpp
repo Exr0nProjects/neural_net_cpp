@@ -8,7 +8,7 @@
 #include <vector>
 
 #pragma once
-#include "src/matrix_cuda.cpp"
+#include "src/matrix.cpp"
 #include "src/activation.cpp"
 #include "src/layer.cpp"
 #include "src/network.cpp"
