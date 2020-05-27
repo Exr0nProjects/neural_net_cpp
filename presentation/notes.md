@@ -1,59 +1,12 @@
+# Footnotes
 
-slide layout
-1 - big picture
-    narrow intelligence
-        interactive tasks (games)
-        vision
-        natrual language
-    general intelligence
-        theory of mind
-        causality
-        goal setting
-2 - common methods
-    zoom on narrow intelligence
-        games
-            RL (alpha go)
-        vision
-            CNN (processing)
-            GAN (generation)
-        natrual language
-            Word2Vec (relational understanding)
-            transformer networks (prediction)
-            TODO: how does translation work?
-3 - example of backprop, how networks learn
-    housing prices
-    table of inputs and outputs
-    TODO: get data, build visualization
-4 - future work
-    parallel processing
-    more activation functions
-    different types of layers
-    better data transformation and normalization
+\*Literally Everything:
 
-
-
-Artificial Intelligence
-    define intelligence: outputs from input, extrapolate data
-    neural networks as Universal function approximators
-what can networks do?
-    general tasks - dense network
-    deep fakes - image generation - gan
-    translation - natrual language gen - transformer networks
-    games - interactive environment - reinforcement learning
-how do they work?
-    demo
-        squares of color -> whether its purple
-        prep:
-            get data - convert to HSV and get how close hue is to purple
-            js visual
-                colored boxes for input
-                grayscale box for output
-                neural network visualization with sliders
-    introduce backpropogation
-        research:
-            good visuals for backprop? 3blue1brown?
-            good explanations for the calc behind it? refer to og blog post
-        TODO: consise explanation
-
-
+By prediction, I mean any ML based model of the world. This is done in so many ways, but here are a few:
+- Sentiment Analysis, probably with recurrent networks
+- [Protien Folding architectures](https://deepmind.com/research/publications/AlphaFold-Improved-protein-structure-prediction-using-potentials-from-deep-learning)
+- [Stock Market stuff with RL](https://medium.com/ether-labs/tradebot-stock-trading-using-reinforcement-learning-part1-8b67c9603f33) ([more](https://towardsdatascience.com/how-to-use-machine-learning-to-possibly-become-a-millionaire-predicting-the-stock-market-33861916e9c5), [links](https://towardsdatascience.com/getting-rich-quick-with-machine-learning-and-stock-market-predictions-696802da94fe))
+And companies from advertising to entertainment use ad hoc classification models to recommend your content.
+And vehicles use CNNs to decide whether to break. And doctors use the same tech to decide whether an X-ray image shows signs of disease.  
+The list goes on and on.
 
