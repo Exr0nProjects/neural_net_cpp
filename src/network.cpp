@@ -106,6 +106,7 @@ public:
                 Matrix<val_t> delta = layers[i].backprop(snapshots[i], snapshots[i + 1], error);  //  TODO: don't  copy exp then copy back, just use the same memory
                 Matrix<val_t> synT = Matrix<val_t>::transpose(layers[i].syn_raw());
 				//printf("    got syn transpose\n");
+				error = Matrix<val_t>::dot(delta, synT);
             }
         }
     }
