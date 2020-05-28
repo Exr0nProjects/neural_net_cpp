@@ -47,7 +47,7 @@ int main(const int argc, char **argv)
     const int UPDATES = 500;
 
     printf("Creating network...\n\n");
-    Network net(3);
+    Network net(inp.w());
     net.addLayer(3);
     net.addLayer(1);
 
