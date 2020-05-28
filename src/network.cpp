@@ -45,7 +45,7 @@ public:
             prev = layers[layers.size() - 1].out_size();
         Layer<val_t> nxt(prev, out_dim);
         layers.push_back(nxt);
-    }
+	}
 
     /**
    * Feed an input vector through the network to check the result
@@ -103,15 +103,9 @@ public:
             // Backprop
             for (int i = layers.size() - 1; i >= 0; --i)
             {
-                //printf("backprop i=%d\n", i);
                 Matrix<val_t> delta = layers[i].backprop(snapshots[i], snapshots[i + 1], error);  //  TODO: don't  copy exp then copy back, just use the same memory
-                //printf("    got delta\n");
                 Matrix<val_t> synT = Matrix<val_t>::transpose(layers[i].syn_raw());
-                //printf("    got syn transpose\n");
-
-                error = Matrix<val_t>::dot(delta, synT);
-                //Matrix<val_t>::dot(delta, synT);
-                //printf("    got error at %x\n", &error);
+				//printf("    got syn transpose\n");
             }
         }
     }

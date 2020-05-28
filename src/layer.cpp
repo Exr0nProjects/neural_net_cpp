@@ -127,6 +127,8 @@ public:
             throw std::domain_error("Invalid 'inp' matrix dimensions for back propogation!");
         if (out.w() != err.w() || out.h() != err.h())
             throw std::domain_error("Invalid 'out' or 'err' matrix dimensions for back propogation!");
+		printf("in backprop: error:\n");
+		err.print();
 
         err *= (_actv->deriv(out));
         update_raw(Matrix<val_t>::dot(Matrix<val_t>::transpose(inp), err));

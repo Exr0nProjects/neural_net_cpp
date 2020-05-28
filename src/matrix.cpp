@@ -67,6 +67,8 @@ public:
                 ret.set(r, c, sum);
             }
         }
+	//printf("dot product:\n");
+	//ret.print();
         return ret;
     }
 
@@ -156,7 +158,7 @@ public:
         _data = allocDims(o.h(), o.w());
         for (dim_t i = 0; i < o.h(); ++i)
         {
-            for (dim_t j = 0; j < o.h(); ++j)
+            for (dim_t j = 0; j < o.w(); ++j)
             {
                 _data[i][j] = o.get(i, j);
             }
@@ -170,7 +172,7 @@ public:
    */
     void print(const unsigned precision = 3) const
     {
-        //printf("Printing Matrix %x\n", this);
+	printf("Printing Matrix %x (%d x %d)\n", this, h(), w());
 
         for (int i = 0; i < _height; ++i)
         {
