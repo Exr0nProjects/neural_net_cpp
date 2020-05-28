@@ -4,10 +4,12 @@
 
 ## Current Status
 
-Part of the way through transitioning to paralell processing, I realized that working with cross device memory efficiently is difficult.
-I am currently researching existing strategies for optimization, such as in place matrix transposition (which is surprisingly difficult) and otherwise reconsidering life choices.
+I never finished converting the code to work with CUDA, so that remains a project for another date.
 
-I've also been working on some side projects, so this one is somewhat on hold for the moment. Until then!
+~~Part of the way through transitioning to paralell processing, I realized that working with cross device memory efficiently is difficult.
+I am currently researching existing strategies for optimization, such as in place matrix transposition (which is surprisingly difficult) and otherwise reconsidering life choices.~~
+
+~~I've also been working on some side projects, so this one is somewhat on hold for the moment. Until then!~~
 
 ## Summary
 
@@ -45,17 +47,16 @@ I plan to write this decently well, and from scratch, which means that I will ne
 
 With all the base code written, I plan to write a simple `int main()` driver that mimics the functionality of Part 2 of [iamtrask's original post](https://iamtrask.github.io/2015/07/12/basic-python-network/). If the Stage 1 was written well, then this should go smoothly.
 
-### Stage 3 - CUDA Madness
+### Stage 3 - CUDA Madness (On Hold)
 
 Having a working CPU neural net in Python, I can finally complete the dream by converting my framework from Stage 1 to work with CUDA.
 
 I am working on this step now, but I don't know how exactly I should go about assigning operations to blocks and threads, because there is so much data manipulation involved that data transfer will probably be the main bottleneck. I need to think about how to paralellize operations without so much data movement.
 
-### Other Notes
-
-1. Class vs instance method model: Class methods take pointers to their instances and return pointers to operated copies. Instance methods mutate themselves
-
 ### Next Steps
 
-- Add more activation functions (relu, tanh, softmax)
-- Add bias
+- Fewer segfaults. Get the thing to actually work.
+- Cuda!
+- More activation functions
+- Rewrite in rust so that I don't have to deal with memory leaks.
+
