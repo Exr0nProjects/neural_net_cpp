@@ -13,7 +13,8 @@
 #include "src/layer.cpp"
 #include "src/network.cpp"
 
-template <class T>
+// Utility function to input matricies
+    template <class T>
 Matrix<T> matrixIn()
 {
     T h, w;
@@ -32,40 +33,34 @@ Matrix<T> matrixIn()
 
 int main(const int argc, char **argv)
 {
+    // open files for i/o if passed as arguments
     if (argc >= 1)
         freopen(argv[1], "r", stdin);
     if (argc >= 2)
         freopen(argv[2], "w+", stdout);
 
-    typedef float val_t;
+    typedef float val_t;                        // use floats for all math
+    // input training and testing data
     Matrix<val_t> inp = matrixIn<val_t>();
     Matrix<val_t> expected = matrixIn<val_t>();
-	Matrix<val_t> validation = matrixIn<val_t>();
-    //printf("expected dims: %dx%d\n", expected.h(), expected.w());
+    Matrix<val_t> validation = matrixIn<val_t>();
 
-    const int CYCLES = 50000;
-    const int UPDATES = 500;
+    const int CYCLES = 50000;                   // number of epochs
+    const int UPDATES = 500;                    // how often to refresh the progress bar
 
-    printf("Creating network...\n\n");
-    Network net(inp.w());
-    net.addLayer(3);
-    net.addLayer(1);
+    std::cout << "Creating network..." << std::endl;
+    Network net(inp.w());                       // create the network with the same input width as the input data
+    net.addLayer(3);                            // add a hidden layer with 3 nodes
+    net.addLayer(1);                            // add a hidden layer with 1 node, this is also the output layer
 
-    /*
-  Notes:
-  With network 19, 5, 3, 1 and an epoch size of 100K,
-    the training sometimes works and sometimes the
-    error goes to nan or 0.5 after about 30%. Is this
-    the vanishing or exploding gradient problem?
-  */
-    printf("Training network.....\n");
-    net.train(inp, expected, CYCLES, UPDATES);
+    std::cout << "Training network..." << std::endl;
+    net.train(inp, expected, CYCLES, UPDATES);  // train the network
 
-	printf("Training completed. Testing network...\n");
-	printf("Test data:\n");
-	validation.print();
-	printf("Test result:\n");
-	net.feed(validation).print();
+    std::cout << "Training completed. Testing network..." << std::endl;
+    std::cout << "Test data:" << std::endl;
+    validation.print();                         // print the test data
+    std::cout << "Test result:" << std::endl;
+    net.feed(validation).print();               // feed the test data through the network and print the result
 
     return 0;
 }
