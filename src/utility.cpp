@@ -41,3 +41,4 @@ void progressBar(int width, double progress, int overwrite = true, const std::st
     }
     printf("] %3d%%\n", (int)(progress * 100 + 1));
 }
+

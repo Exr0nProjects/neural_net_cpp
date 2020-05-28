@@ -221,3 +221,4 @@ template <class val_t> class Matrix {
                 set(i, j, get(i, j) * o.get(i, j));
     }
 };
+
