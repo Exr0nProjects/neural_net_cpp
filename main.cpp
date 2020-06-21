@@ -45,8 +45,8 @@ int main(const int argc, char **argv)
     Matrix<val_t> expected = matrixIn<val_t>();
     Matrix<val_t> validation = matrixIn<val_t>();
 
-    const int CYCLES = 50000;                   // number of epochs
-    const int UPDATES = 500;                    // how often to refresh the progress bar
+    const int CYCLES = 500;                   // number of epochs
+    const int UPDATES = 50;                    // how often to refresh the progress bar
 
     std::cout << "Creating network..." << std::endl;
     Network net(inp.w());                       // create the network with the same input width as the input data
