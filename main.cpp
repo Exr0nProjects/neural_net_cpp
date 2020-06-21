@@ -50,7 +50,7 @@ int main(const int argc, char **argv)
 
     std::cout << "Creating network..." << std::endl;
     Network net(inp.w());                       // create the network with the same input width as the input data
-    net.addLayer(3);                            // add a hidden layer with 3 nodes
+    net.addLayer(5);                            // add a hidden layer with 3 nodes
     net.addLayer(1);                            // add a hidden layer with 1 node, this is also the output layer
 
     std::cout << "Training network..." << std::endl;
