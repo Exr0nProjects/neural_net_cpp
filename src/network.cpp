@@ -97,5 +97,14 @@ public:
 			}
 		}
 	}
+
+	/**
+	 * Print the network: do the weights look reasonable?
+	 */
+	void print()
+	{
+		for (const Layer<val_t> &layer : layers)
+			layer.syn_raw().print();
+	}
 };
 
